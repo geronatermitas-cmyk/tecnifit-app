@@ -1,20 +1,65 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// @ts-nocheck
+import 'react-native-gesture-handler';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-export default function App() {
+import { AuthProvider } from './store/AuthStore';
+import { IntakeProvider } from './store/IntakeStore';
+
+import LandingScreen from './screens/LandingScreen';
+import LoginScreen from './screens/LoginScreen';
+import SignupScreen from './screens/SignupScreen';
+import PanelScreen from './screens/PanelScreen';
+import ResultsScreen from './screens/ResultsScreen';
+import PlansScreen from './screens/PlansScreen';
+import HistoryScreen from './screens/HistoryScreen';
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
+import TaskBuilderScreen from './screens/TaskBuilderScreen';
+
+import MenuButton from './components/MenuButton';
+
+const Stack = createNativeStackNavigator();
+
+function RootNavigator() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Stack.Navigator
+      screenOptions={{
+        headerTitle: 'TecnicFit',
+        headerStyle: { backgroundColor: '#2563EB' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: '800' },
+        headerRight: () => <MenuButton />, // ← tres puntos en TODAS
+      }}
+    >
+      <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: true }} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ title: 'Recuperar' }} />
+
+      {/* RUTAS CON SESIÓN */}
+      <Stack.Screen name="Panel" component={PanelScreen} />
+      <Stack.Screen name="TaskBuilder" component={TaskBuilderScreen} options={{ title: 'Generar tarea' }} />
+
+      {/* COMUNES */}
+      <Stack.Screen name="Results" component={ResultsScreen} options={{ title: 'Resultados' }} />
+      <Stack.Screen name="Plans" component={PlansScreen} options={{ title: 'Planes' }} />
+      <Stack.Screen name="History" component={HistoryScreen} options={{ title: 'Historial' }} />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AuthProvider>
+        <IntakeProvider>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </IntakeProvider>
+      </AuthProvider>
+    </GestureHandlerRootView>
+  );
+}
