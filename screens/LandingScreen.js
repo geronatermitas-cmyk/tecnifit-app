@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet, Dimensions, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AuthModal from '../components/AuthModal';
+import SearchBar from '../components/SearchBar';
 
 
 
@@ -15,11 +16,18 @@ export default function LandingScreen() {
 
   const nav = useNavigation();
   const [authModalVisible, setAuthModalVisible] = useState(false);
+  const [searchResults, setSearchResults] = useState(null);
 
 
 
 
 
+
+
+  const handleSearch = (results) => {
+    setSearchResults(results);
+    console.log(`Resultados de búsqueda: Se encontraron ${results.database.length + results.internet.length} resultados para "${results.query}"`);
+  };
 
 
   return (
@@ -46,21 +54,7 @@ export default function LandingScreen() {
             Genera tareas inteligentes usando IA. Describe, fotografía o escanea códigos QR para obtener guías paso a paso.
           </Text>
 
-          {/* Botón de inicio rápido */}
-          <TouchableOpacity
-            style={styles.quickStartButton}
-            onPress={() => setAuthModalVisible(true)}
-          >
-            <Text style={styles.quickStartButtonText}>Inicio rápido</Text>
-          </TouchableOpacity>
 
-          {/* Botón de crear cuenta */}
-          <TouchableOpacity
-            style={styles.signupButton}
-            onPress={() => nav.navigate('Signup')}
-          >
-            <Text style={styles.signupButtonText}>Crear cuenta</Text>
-          </TouchableOpacity>
 
           {/* Características */}
           <View style={styles.featuresContainer}>
@@ -90,6 +84,9 @@ export default function LandingScreen() {
         </View>
 
       </ScrollView>
+
+      {/* SearchBar en la parte inferior */}
+      <SearchBar onSearch={handleSearch} />
 
       {/* Modal de autenticación */}
       <AuthModal
@@ -137,32 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     textAlign: 'center',
   },
-  quickStartButton: {
-    backgroundColor: '#2563EB',
-    paddingVertical: 14,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  quickStartButtonText: {
-    color: '#fff',
-    fontWeight: '800',
-    fontSize: 16,
-  },
-  signupButton: {
-    backgroundColor: '#F3F4F6',
-    paddingVertical: 14,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginBottom: 24,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-  },
-  signupButtonText: {
-    color: '#0F172A',
-    fontWeight: '800',
-    fontSize: 16,
-  },
+
   featuresContainer: {
     backgroundColor: '#F8FAFC',
     borderRadius: 16,

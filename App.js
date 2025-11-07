@@ -72,7 +72,7 @@ headerRight: () => <MenuButton />, // ← tres puntos en TODAS
 
 >
 
-<Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: true }} />
+<Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: true, title: 'TecnicFit IA' }} />
 
 <Stack.Screen name="Login" component={LoginScreen} />
 
