@@ -82,7 +82,7 @@ export default function AuthModal({ visible, onClose }) {
             disabled={loading}
           >
             <Text style={styles.appleIcon}>🍎</Text>
-            <Text style={styles.buttonText}>Continuar con Apple</Text>
+            <Text style={[styles.buttonText, { color: '#fff' }]}>Continuar con Apple</Text>
           </TouchableOpacity>
 
           {/* Divisor */}
@@ -97,7 +97,7 @@ export default function AuthModal({ visible, onClose }) {
             style={styles.closeButton}
             onPress={onClose}
           >
-            <Text style={styles.closeButtonText}>Cerrar</Text>
+            <Text style={styles.closeButtonText}>Continuar como Invitado</Text>
           </TouchableOpacity>
 
         </View>
@@ -114,33 +114,33 @@ const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   modalView: {
     backgroundColor: '#fff',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderRadius: 20,
     paddingHorizontal: 20,
     paddingTop: 24,
     paddingBottom: 32,
-    width: '100%',
-    maxHeight: '50%',
+    width: '90%',
+    maxWidth: 400,
+    maxHeight: '80%',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: -2 },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: '900',
     color: '#0F172A',
     marginBottom: 4,
     textAlign: 'center',
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#64748B',
     marginBottom: 20,
     textAlign: 'center',
@@ -159,8 +159,8 @@ const styles = StyleSheet.create({
     borderColor: '#E2E8F0',
   },
   appleButton: {
-    backgroundColor: '#000',
-    borderColor: '#000',
+    backgroundColor: '#0F172A',
+    borderColor: '#0F172A',
   },
   googleIcon: {
     fontSize: 20,
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     borderColor: '#E2E8F0',
   },
   closeButtonText: {
-    color: '#0F172A',
+    color: '#2563EB',
     fontWeight: '700',
     fontSize: 16,
   },
