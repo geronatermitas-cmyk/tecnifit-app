@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+// import { Ionicons } from '@expo/vector-icons';
 
 
 export default function SearchBar({ onSearch, placeholder = "Buscar tareas, tutoriales..." }) {
@@ -54,7 +54,7 @@ export default function SearchBar({ onSearch, placeholder = "Buscar tareas, tuto
     <View style={styles.container}>
       <View style={styles.searchBox}>
         {/* Icono de búsqueda */}
-        <Ionicons name="search" size={20} color="#94A3B8" style={styles.icon} />
+        <Text style={[styles.icon, { fontSize: 20, color: '#94A3B8' }]}>🔍</Text>
 
         {/* Input */}
         <TextInput
@@ -71,7 +71,7 @@ export default function SearchBar({ onSearch, placeholder = "Buscar tareas, tuto
         {/* Botón limpiar */}
         {query.length > 0 && (
           <TouchableOpacity onPress={handleClear} style={styles.clearButton}>
-            <Ionicons name="close-circle" size={20} color="#94A3B8" />
+            <Text style={{ fontSize: 20, color: '#94A3B8' }}>❌</Text>
           </TouchableOpacity>
         )}
 
@@ -84,7 +84,7 @@ export default function SearchBar({ onSearch, placeholder = "Buscar tareas, tuto
           {loading ? (
             <ActivityIndicator size="small" color="#fff" />
           ) : (
-            <Ionicons name="send" size={18} color="#fff" />
+            <Text style={{ fontSize: 18, color: '#fff' }}>➤</Text>
           )}
         </TouchableOpacity>
       </View>
@@ -93,21 +93,21 @@ export default function SearchBar({ onSearch, placeholder = "Buscar tareas, tuto
       <View style={styles.suggestionsContainer}>
         <TouchableOpacity onPress={() => { setQuery('Reparación'); }}>
           <View style={styles.suggestionTag}>
-            <Ionicons name="hammer" size={14} color="#2563EB" />
+            <Text style={{ fontSize: 14, color: '#2563EB', marginRight: 4 }}>🔨</Text>
             <Text style={styles.suggestionText}>Reparación</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => { setQuery('Montaje'); }}>
           <View style={styles.suggestionTag}>
-            <Ionicons name="build" size={14} color="#2563EB" />
+            <Text style={{ fontSize: 14, color: '#2563EB', marginRight: 4 }}>🛠️</Text>
             <Text style={styles.suggestionText}>Montaje</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => { setQuery('Tutorial'); }}>
           <View style={styles.suggestionTag}>
-            <Ionicons name="book" size={14} color="#2563EB" />
+            <Text style={{ fontSize: 14, color: '#2563EB', marginRight: 4 }}>📖</Text>
             <Text style={styles.suggestionText}>Tutorial</Text>
           </View>
         </TouchableOpacity>
