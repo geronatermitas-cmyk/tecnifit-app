@@ -50,7 +50,14 @@ export default function MenuButton() {
 
       <Pressable
 
-        onPress={() => setOpen(v => !v)}
+        onPress={() => {
+          if (!user) {
+            // Enviar señal a LandingScreen para abrir el AuthModal
+            navigation.navigate('Landing', { openAuthModal: true });
+          } else {
+            setOpen(v => !v);
+          }
+        }}
 
         hitSlop={12}
 
@@ -58,12 +65,12 @@ export default function MenuButton() {
 
       >
 
-        <Ionicons name="person-circle-outline" size={26} color="#fff" />
+        <Ionicons name={user ? "person-circle" : "person-circle-outline"} size={26} color="#fff" />
 
       </Pressable>
 
 
-      {open && (
+      {open && user && (
 
         <Pressable style={StyleSheet.absoluteFill} onPress={() => setOpen(false)}>
 
@@ -72,7 +79,7 @@ export default function MenuButton() {
       )}
 
 
-      {open && (
+      {open && user && (
 
         <View style={styles.menu}>
 

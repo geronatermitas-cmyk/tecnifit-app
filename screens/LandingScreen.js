@@ -1,8 +1,8 @@
 // @ts-nocheck
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet, Dimensions, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import AuthModal from '../components/AuthModal';
 import SearchBar from '../components/SearchBar';
 
@@ -15,8 +15,17 @@ const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 export default function LandingScreen() {
 
   const nav = useNavigation();
+  const route = useRoute();
   const [authModalVisible, setAuthModalVisible] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
+
+  useEffect(() => {
+    if (route.params?.openAuthModal) {
+      setAuthModalVisible(true);
+      // Limpiar el parámetro para que no se abra de nuevo al volver
+      nav.setParams({ openAuthModal: undefined });
+    }
+  }, [route.params?.openAuthModal]);
 
 
 
@@ -108,7 +117,7 @@ const styles = StyleSheet.create({
   },
   heroContainer: {
     width: screenWidth,
-    height: screenHeight * 0.65,
+    height: screenHeight * 0.75,
     overflow: 'hidden',
     backgroundColor: '#F8FAFC',
   },
