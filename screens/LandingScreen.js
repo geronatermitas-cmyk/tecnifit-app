@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   heroContainer: {
     width: screenWidth,
-    height: screenHeight * 0.75,
+    height: screenHeight,
     overflow: 'hidden',
     backgroundColor: '#F8FAFC',
   },
