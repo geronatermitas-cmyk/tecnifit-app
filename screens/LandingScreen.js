@@ -1,9 +1,12 @@
 // @ts-nocheck
 
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AuthModal from '../components/AuthModal';
+
+
+const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
 
 export default function LandingScreen() {
@@ -16,72 +19,67 @@ export default function LandingScreen() {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
 
-        {/* Título principal */}
-        <Text style={styles.mainTitle}>TecnicFit Pro</Text>
-        <Text style={styles.subtitle}>Tu asistente digital de tareas</Text>
-
-        {/* Mascota Robot */}
-        <View style={styles.imageContainer}>
-          <Image
-            source={require('../assets/images/robot-mascot.png')}
-            style={styles.robotImage}
-            resizeMode="contain"
-          />
-        </View>
-
-        {/* Descripción */}
-        <Text style={styles.description}>
-          Genera tareas inteligentes usando IA. Describe, fotografía o escanea códigos QR para obtener guías paso a paso.
-        </Text>
-
-        {/* Botón de inicio rápido */}
-        <TouchableOpacity
-          style={styles.quickStartButton}
-          onPress={() => setAuthModalVisible(true)}
-        >
-          <Text style={styles.quickStartButtonText}>Inicio rápido</Text>
-        </TouchableOpacity>
-
-        {/* Botón de crear cuenta */}
-        <TouchableOpacity
-          style={styles.signupButton}
-          onPress={() => nav.navigate('Signup')}
-        >
-          <Text style={styles.signupButtonText}>Crear cuenta</Text>
-        </TouchableOpacity>
-
-        {/* Mockup Phone */}
-        <View style={styles.mockupContainer}>
+        {/* Hero Image - Mockup Phone (Ocupa toda la pantalla) */}
+        <View style={styles.heroContainer}>
           <Image
             source={require('../assets/images/mockup-phone.png')}
-            style={styles.mockupImage}
-            resizeMode="contain"
+            style={styles.heroImage}
+            resizeMode="cover"
           />
         </View>
 
-        {/* Características */}
-        <View style={styles.featuresContainer}>
-          <Text style={styles.featuresTitle}>¿Por qué TecnicFit?</Text>
+        {/* Contenido debajo de la imagen */}
+        <View style={styles.contentContainer}>
 
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>🤖</Text>
-            <Text style={styles.featureText}>IA Inteligente</Text>
+          {/* Título principal */}
+          <Text style={styles.mainTitle}>TecnicFit Pro</Text>
+
+          {/* Descripción */}
+          <Text style={styles.description}>
+            Genera tareas inteligentes usando IA. Describe, fotografía o escanea códigos QR para obtener guías paso a paso.
+          </Text>
+
+          {/* Botón de inicio rápido */}
+          <TouchableOpacity
+            style={styles.quickStartButton}
+            onPress={() => setAuthModalVisible(true)}
+          >
+            <Text style={styles.quickStartButtonText}>Inicio rápido</Text>
+          </TouchableOpacity>
+
+          {/* Botón de crear cuenta */}
+          <TouchableOpacity
+            style={styles.signupButton}
+            onPress={() => nav.navigate('Signup')}
+          >
+            <Text style={styles.signupButtonText}>Crear cuenta</Text>
+          </TouchableOpacity>
+
+          {/* Características */}
+          <View style={styles.featuresContainer}>
+            <Text style={styles.featuresTitle}>¿Por qué TecnicFit?</Text>
+
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>🤖</Text>
+              <Text style={styles.featureText}>IA Inteligente</Text>
+            </View>
+
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>📸</Text>
+              <Text style={styles.featureText}>Reconocimiento de fotos</Text>
+            </View>
+
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>📱</Text>
+              <Text style={styles.featureText}>Escaneo de códigos QR</Text>
+            </View>
+
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>📚</Text>
+              <Text style={styles.featureText}>Tutoriales y guías</Text>
+            </View>
           </View>
 
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>📸</Text>
-            <Text style={styles.featureText}>Reconocimiento de fotos</Text>
-          </View>
-
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>📱</Text>
-            <Text style={styles.featureText}>Escaneo de códigos QR</Text>
-          </View>
-
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>📚</Text>
-            <Text style={styles.featureText}>Tutoriales y guías</Text>
-          </View>
         </View>
 
       </ScrollView>
@@ -102,31 +100,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   scrollContent: {
-    paddingHorizontal: 20,
-    paddingTop: 20,
     paddingBottom: 40,
   },
-  mainTitle: {
-    fontSize: 36,
-    fontWeight: '900',
-    color: '#0F172A',
-    marginBottom: 8,
-    textAlign: 'center',
+  heroContainer: {
+    width: screenWidth,
+    height: screenHeight * 0.65, // Ocupa el 65% de la pantalla
+    overflow: 'hidden',
+    backgroundColor: '#F8FAFC',
   },
-  subtitle: {
-    fontSize: 16,
-    color: '#64748B',
-    marginBottom: 24,
-    textAlign: 'center',
-  },
-  imageContainer: {
-    alignItems: 'center',
-    marginBottom: 24,
-    height: 200,
-  },
-  robotImage: {
+  heroImage: {
     width: '100%',
     height: '100%',
+  },
+  contentContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 24,
+  },
+  mainTitle: {
+    fontSize: 32,
+    fontWeight: '900',
+    color: '#0F172A',
+    marginBottom: 12,
+    textAlign: 'center',
   },
   description: {
     fontSize: 14,
@@ -160,15 +155,6 @@ const styles = StyleSheet.create({
     color: '#0F172A',
     fontWeight: '800',
     fontSize: 16,
-  },
-  mockupContainer: {
-    alignItems: 'center',
-    marginBottom: 32,
-    height: 300,
-  },
-  mockupImage: {
-    width: '100%',
-    height: '100%',
   },
   featuresContainer: {
     backgroundColor: '#F8FAFC',
