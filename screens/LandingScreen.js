@@ -41,16 +41,16 @@ export default function LandingScreen() {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+      {/* Hero Image - Mockup Phone (Fija en el fondo) */}
+      <View style={styles.heroContainer}>
+        <Image
+          source={require('../assets/images/mockup-phone.png')}
+          style={styles.heroImage}
+          resizeMode="cover"
+        />
+      </View>
 
-        {/* Hero Image - Mockup Phone (Ocupa toda la pantalla) */}
-        <View style={styles.heroContainer}>
-          <Image
-            source={require('../assets/images/mockup-phone.png')}
-            style={styles.heroImage}
-            resizeMode="cover"
-          />
-        </View>
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
 
         {/* Contenido debajo de la imagen */}
         <View style={styles.contentContainer}>
@@ -112,7 +112,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  // Contenedor de la imagen fuera del ScrollView
+  imageWrapper: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: screenWidth,
+    height: screenHeight,
+  },
   scrollContent: {
+    paddingTop: screenHeight, // Empuja el contenido hacia abajo
     paddingBottom: 40,
   },
   heroContainer: {
@@ -120,6 +129,9 @@ const styles = StyleSheet.create({
     height: screenHeight,
     overflow: 'hidden',
     backgroundColor: '#F8FAFC',
+    position: 'absolute', // Fija la imagen en el fondo
+    top: 0,
+    left: 0,
   },
   heroImage: {
     width: '100%',
@@ -128,6 +140,10 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 20,
     paddingTop: 24,
+    backgroundColor: '#fff', // Asegura que el contenido que se desplaza tenga fondo blanco
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    marginTop: -40, // Superpone ligeramente con la imagen
   },
   mainTitle: {
     fontSize: 32,

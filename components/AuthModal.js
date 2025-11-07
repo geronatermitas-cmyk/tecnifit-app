@@ -62,8 +62,23 @@ export default function AuthModal({ visible, onClose }) {
         <View style={styles.modalView}>
 
           {/* Título */}
-          <Text style={styles.title}>Iniciar sesión rápido</Text>
-          <Text style={styles.subtitle}>Continúa con tu cuenta</Text>
+          <Text style={styles.title}>Acceso a TecnicFit Pro</Text>
+          <Text style={styles.subtitle}>Inicia sesión o regístrate para acceder a todas las funcionalidades.</Text>
+
+          {/* Botón Email/Contraseña */}
+          <TouchableOpacity
+            style={[styles.button, styles.emailButton]}
+            onPress={() => nav.navigate('Login')} // Navega a la pantalla de Login
+          >
+            <Text style={styles.emailIcon}>📧</Text>
+            <Text style={[styles.buttonText, { color: '#fff' }]}>Continuar con Email</Text>
+          </TouchableOpacity>
+
+          <View style={styles.divider}>
+            <View style={styles.line} />
+            <Text style={styles.dividerText}>o</Text>
+            <View style={styles.line} />
+          </View>
 
           {/* Botón Google */}
           <TouchableOpacity
@@ -161,6 +176,14 @@ const styles = StyleSheet.create({
   appleButton: {
     backgroundColor: '#0F172A',
     borderColor: '#0F172A',
+  },
+  emailButton: {
+    backgroundColor: '#2563EB',
+    borderColor: '#2563EB',
+  },
+  emailIcon: {
+    fontSize: 20,
+    marginRight: 10,
   },
   googleIcon: {
     fontSize: 20,
