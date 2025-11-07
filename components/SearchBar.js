@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
     borderTopColor: '#E2E8F0',
     // Ajuste para que la decoración se vea
     paddingTop: 20, // Aumentar el padding superior para dar espacio a la decoración
-  },
     // Centrar y limitar ancho
     alignItems: 'center',
     position: 'relative', // Para que la decoración se posicione correctamente
