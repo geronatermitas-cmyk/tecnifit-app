@@ -66,7 +66,7 @@ headerTintColor: '#fff',
 
 headerTitleStyle: { fontWeight: '800' },
 
-headerRight: () => <MenuButton />, // ← tres puntos en TODAS
+headerRight: ({ navigation }) => <MenuButton navigation={navigation} />, // ← tres puntos en TODAS
 
 }}
 
@@ -91,7 +91,7 @@ headerRight: () => <MenuButton />, // ← tres puntos en TODAS
 
 {/* COMUNES */}
 
-<Stack.Screen name="Results" component={ResultsScreen} options={{ title: 'Resultados' }} />
+<Stack.Screen name="Results" component={ResultsScreen} options={{ title: 'Resultados', headerRight: () => <MenuButton isResultsScreen={true} /> }} />
 
 <Stack.Screen name="Plans" component={PlansScreen} options={{ title: 'Planes' }} />
 

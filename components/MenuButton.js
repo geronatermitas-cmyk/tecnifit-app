@@ -6,14 +6,14 @@ import { View, Text, Pressable, TouchableOpacity, StyleSheet } from 'react-nativ
 
 import { useNavigation } from '@react-navigation/native';
 
-import { Ionicons } from '@expo/vector-icons';
+// import { Ionicons } from '@expo/vector-icons'; // Eliminado por problemas de compatibilidad
 
 import { useAuth } from '../store/AuthStore';
 
 
-export default function MenuButton() {
+export default function MenuButton({ navigation }) {
 
-  const navigation = useNavigation();
+  // const navigation = useNavigation(); // Usamos el prop navigation de App.js
 
   const [open, setOpen] = useState(false);
 
@@ -65,7 +65,7 @@ export default function MenuButton() {
 
       >
 
-        <Ionicons name={user ? "person-circle" : "person-circle-outline"} size={26} color="#fff" />
+        <Text style={{ fontSize: 26, color: '#fff' }}>{user ? "👤" : "⚪"}</Text>
 
       </Pressable>
 

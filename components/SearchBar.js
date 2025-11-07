@@ -44,6 +44,8 @@ export default function SearchBar({ placeholder = "Buscar tareas, tutoriales..."
 
   return (
     <View style={styles.container}>
+      {/* Decoración discreta detrás de la barra de búsqueda */}
+      <View style={styles.decoration} />
       <View style={styles.searchBox}>
         {/* Icono de búsqueda (Emoji estable) */}
         <Text style={[styles.icon, { fontSize: 20, color: '#94A3B8' }]}>🔍</Text>
@@ -118,6 +120,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#E2E8F0',
     // Centrar y limitar ancho
     alignItems: 'center',
+    position: 'relative', // Para que la decoración se posicione correctamente
   },
   searchBox: {
     flexDirection: 'row',
@@ -131,6 +134,7 @@ const styles = StyleSheet.create({
     height: 48,
     width: '100%',
     maxWidth: 600, // Limitar ancho
+    zIndex: 10, // Asegura que la barra de búsqueda esté por encima de la decoración
   },
   icon: {
     marginRight: 8,
@@ -176,5 +180,18 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#2563EB',
     fontWeight: '600',
+  },
+  decoration: {
+    position: 'absolute',
+    top: 10,
+    width: '100%',
+    maxWidth: 620, // Un poco más ancho que la barra de búsqueda
+    height: 52,
+    backgroundColor: '#EBF4FF', // Fondo azul muy claro
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#BFDBFE',
+    borderStyle: 'dashed',
+    zIndex: 5, // Detrás de la barra de búsqueda
   },
 });

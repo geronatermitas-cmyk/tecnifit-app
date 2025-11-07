@@ -65,28 +65,31 @@ export default function LandingScreen() {
 
 
 
-          {/* Características */}
-          <View style={styles.featuresContainer}>
-            <Text style={styles.featuresTitle}>¿Por qué TecnicFit?</Text>
-
-            <View style={styles.featureItem}>
+          {/* Características - Rediseño a cuadrícula */}
+          <Text style={styles.featuresTitle}>¿Por qué TecnicFit?</Text>
+          <View style={styles.featuresGrid}>
+            <View style={styles.featureCard}>
               <Text style={styles.featureIcon}>🤖</Text>
-              <Text style={styles.featureText}>IA Inteligente</Text>
+              <Text style={styles.featureCardTitle}>IA Inteligente</Text>
+              <Text style={styles.featureCardText}>Identifica piezas y genera guías.</Text>
             </View>
 
-            <View style={styles.featureItem}>
+            <View style={styles.featureCard}>
               <Text style={styles.featureIcon}>📸</Text>
-              <Text style={styles.featureText}>Reconocimiento de fotos</Text>
+              <Text style={styles.featureCardTitle}>Reconocimiento Visual</Text>
+              <Text style={styles.featureCardText}>Sube una foto y obtén la solución.</Text>
             </View>
 
-            <View style={styles.featureItem}>
+            <View style={styles.featureCard}>
               <Text style={styles.featureIcon}>📱</Text>
-              <Text style={styles.featureText}>Escaneo de códigos QR</Text>
+              <Text style={styles.featureCardTitle}>Escaneo QR</Text>
+              <Text style={styles.featureCardText}>Acceso instantáneo a manuales.</Text>
             </View>
 
-            <View style={styles.featureItem}>
+            <View style={styles.featureCard}>
               <Text style={styles.featureIcon}>📚</Text>
-              <Text style={styles.featureText}>Tutoriales y guías</Text>
+              <Text style={styles.featureCardTitle}>Guías Paso a Paso</Text>
+              <Text style={styles.featureCardText}>Tutoriales detallados y verificados.</Text>
             </View>
           </View>
 
@@ -160,31 +163,40 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  featuresContainer: {
-    backgroundColor: '#F8FAFC',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 20,
-  },
   featuresTitle: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: '900',
     color: '#0F172A',
     marginBottom: 16,
     textAlign: 'center',
   },
-  featureItem: {
+  featuresGrid: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  featureCard: {
+    width: '48%', // Dos tarjetas por fila
+    backgroundColor: '#F8FAFC',
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
   },
   featureIcon: {
-    fontSize: 24,
-    marginRight: 12,
+    fontSize: 32,
+    marginBottom: 8,
   },
-  featureText: {
-    fontSize: 14,
-    color: '#334155',
-    fontWeight: '600',
+  featureCardTitle: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: '#0F172A',
+    marginBottom: 4,
+  },
+  featureCardText: {
+    fontSize: 12,
+    color: '#64748B',
   },
 });
