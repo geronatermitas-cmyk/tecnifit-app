@@ -13,7 +13,7 @@ export default function SearchBar({ onSearch, placeholder = "Buscar tareas, tuto
 
   const handleSearch = async () => {
     if (!query.trim()) {
-      Alert.alert('Campo vacío', 'Por favor ingresa un término de búsqueda');
+      console.log('Campo vacío: Por favor ingresa un término de búsqueda');
       return;
     }
 
@@ -38,7 +38,7 @@ export default function SearchBar({ onSearch, placeholder = "Buscar tareas, tuto
       // Limpiar input
       setQuery('');
     } catch (error) {
-      Alert.alert('Error', 'No se pudo realizar la búsqueda');
+      console.error('Error en la búsqueda simulada:', error);
     } finally {
       setLoading(false);
     }
@@ -91,21 +91,21 @@ export default function SearchBar({ onSearch, placeholder = "Buscar tareas, tuto
 
       {/* Sugerencias */}
       <View style={styles.suggestionsContainer}>
-        <TouchableOpacity onPress={() => { setQuery('Reparación'); handleSearch(); }}>
+        <TouchableOpacity onPress={() => { setQuery('Reparación'); }}>
           <View style={styles.suggestionTag}>
             <Ionicons name="hammer" size={14} color="#2563EB" />
             <Text style={styles.suggestionText}>Reparación</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => { setQuery('Montaje'); handleSearch(); }}>
+        <TouchableOpacity onPress={() => { setQuery('Montaje'); }}>
           <View style={styles.suggestionTag}>
             <Ionicons name="build" size={14} color="#2563EB" />
             <Text style={styles.suggestionText}>Montaje</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => { setQuery('Tutorial'); handleSearch(); }}>
+        <TouchableOpacity onPress={() => { setQuery('Tutorial'); }}>
           <View style={styles.suggestionTag}>
             <Ionicons name="book" size={14} color="#2563EB" />
             <Text style={styles.suggestionText}>Tutorial</Text>
