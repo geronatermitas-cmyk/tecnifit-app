@@ -149,10 +149,12 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 20,
     paddingTop: 24,
-    backgroundColor: 'transparent', // Fondo transparente para que se vea la imagen de héroe
+    backgroundColor: 'rgba(255, 255, 255, 0.5)', // Fondo semitransparente para el efecto cristal
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     marginTop: -40, // Superpone ligeramente con la imagen
+    // Efecto de vidrio esmerilado (Frosted Glass)
+    backdropFilter: 'blur(10px)',
   },
   mainTitle: {
     fontSize: 32,
@@ -198,7 +200,7 @@ const styles = StyleSheet.create({
   },
   featureCard: {
     width: '48%', // Dos tarjetas por fila
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Fondo blanco semitransparente para legibilidad
+    backgroundColor: 'transparent', // Fondo transparente para que el efecto cristal del contentContainer se aplique a la tarjeta
     borderRadius: 16,
     padding: 16,
     marginBottom: 16,

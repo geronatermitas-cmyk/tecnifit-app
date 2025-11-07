@@ -127,14 +127,12 @@ const styles = StyleSheet.create({
   searchBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.5)', // Fondo más transparente para el efecto cristal
+    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Fondo blanco semitransparente restaurado
     borderRadius: 12,
-    // Efecto de vidrio esmerilado (Frosted Glass)
-    // Nota: backdropFilter solo funciona en React Native Web
-    backdropFilter: 'blur(8px)',
     // Borde más sutil
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.8)',
+    borderColor: '#E2E8F0', // Borde gris claro restaurado
+    // Se elimina backdropFilter
     paddingHorizontal: 12,
     height: 48,
     width: '100%',
