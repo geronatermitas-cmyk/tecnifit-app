@@ -186,8 +186,9 @@ const styles = StyleSheet.create({
     borderColor: '#E2E8F0',
   },
   featureIcon: {
-    fontSize: 32,
+    fontSize: 48, // Aumentado de 32 a 48
     marginBottom: 8,
+    color: '#2563EB', // Color azul para destacar
   },
   featureCardTitle: {
     fontSize: 16,

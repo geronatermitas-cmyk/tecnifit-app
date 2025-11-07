@@ -118,6 +118,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopWidth: 1,
     borderTopColor: '#E2E8F0',
+    // Ajuste para que la decoración se vea
+    paddingTop: 20, // Aumentar el padding superior para dar espacio a la decoración
+  },
     // Centrar y limitar ancho
     alignItems: 'center',
     position: 'relative', // Para que la decoración se posicione correctamente
@@ -183,7 +186,7 @@ const styles = StyleSheet.create({
   },
   decoration: {
     position: 'absolute',
-    top: 10,
+    top: 10, // Ajuste de posición
     width: '100%',
     maxWidth: 620, // Un poco más ancho que la barra de búsqueda
     height: 52,
