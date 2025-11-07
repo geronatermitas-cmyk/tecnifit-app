@@ -57,7 +57,7 @@ return (
 
 screenOptions={{
 
-headerTitle: 'TecnicFit',
+headerTitle: 'TecnicFit Pro',
 
 headerStyle: { backgroundColor: '#2563EB' },
 
