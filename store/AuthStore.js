@@ -1,6 +1,7 @@
 // @ts-nocheck
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
 
 
@@ -17,6 +18,7 @@ const Ctx = createContext(null);
 
 
 export function AuthProvider({ children }) {
+  const navigation = useNavigation();
 
 const [user, setUser] = useState(null);
 
@@ -93,27 +95,33 @@ try { await SecureStore.deleteItemAsync(KEY); } catch {}
 
 const signIn = async ({ email, password }) => {
 
-if (!email || !password) throw new Error('Faltan credenciales');
+	if (!email || !password) throw new Error('Faltan credenciales');
 
-const current = user ?? { token: 'demo-token', email, name: email.split('@')[0], role: 'free' };
+	const current = user ?? { token: 'demo-token', email, name: email.split('@')[0], role: 'free' };
 
-await persist(current);
+	await persist(current);
 
-return current;
+	// Navegar al panel después de un inicio de sesión exitoso
+	navigation.reset({ index: 0, routes: [{ name: 'Panel' }] });
 
-};
+	return current;
+
+	};
 
 const signUp = async ({ name, email, password }) => {
 
-if (!name || !email || !password) throw new Error('Completa todos los campos');
+	if (!name || !email || !password) throw new Error('Completa todos los campos');
 
-const newUser = { token: 'demo-token', email, name, role: 'free' };
+	const newUser = { token: 'demo-token', email, name, role: 'free' };
 
-await persist(newUser);
+	await persist(newUser);
 
-return newUser;
+	// Navegar al panel después de un registro exitoso
+	navigation.reset({ index: 0, routes: [{ name: 'Panel' }] });
 
-};
+	return newUser;
+
+	};
 
 const signOut = async () => { await clear(); };
 

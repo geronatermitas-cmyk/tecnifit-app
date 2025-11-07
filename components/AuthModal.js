@@ -1,11 +1,14 @@
 // @ts-nocheck
 
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, Pressable, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../store/AuthStore';
 
 
 export default function AuthModal({ visible, onClose }) {
+  const navigation = useNavigation();
 
   const { signIn } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -19,10 +22,11 @@ export default function AuthModal({ visible, onClose }) {
         email: 'usuario@gmail.com',
         password: 'google-oauth-token'
       });
-      Alert.alert('Éxito', 'Iniciado sesión con Google');
+      // El signIn en AuthStore.js ya maneja la navegación a 'Panel'
       onClose();
     } catch (error) {
-      Alert.alert('Error', error.message);
+      console.error('Error al iniciar sesión con Google:', error);
+      // Podríamos mostrar un Toast o un mensaje de error aquí si fuera necesario
     } finally {
       setLoading(false);
     }
@@ -37,10 +41,11 @@ export default function AuthModal({ visible, onClose }) {
         email: 'usuario@icloud.com',
         password: 'apple-oauth-token'
       });
-      Alert.alert('Éxito', 'Iniciado sesión con Apple');
+      // El signIn en AuthStore.js ya maneja la navegación a 'Panel'
       onClose();
     } catch (error) {
-      Alert.alert('Error', error.message);
+      console.error('Error al iniciar sesión con Apple:', error);
+      // Podríamos mostrar un Toast o un mensaje de error aquí si fuera necesario
     } finally {
       setLoading(false);
     }
@@ -68,7 +73,10 @@ export default function AuthModal({ visible, onClose }) {
           {/* Botón Email/Contraseña */}
           <TouchableOpacity
             style={[styles.button, styles.emailButton]}
-            onPress={() => nav.navigate('Login')} // Navega a la pantalla de Login
+            onPress={() => {
+              onClose(); // Cerrar el modal
+              navigation.navigate('Login'); // Navegar a la pantalla de Login
+            }}
           >
             <Text style={styles.emailIcon}>📧</Text>
             <Text style={[styles.buttonText, { color: '#fff' }]}>Continuar con Email</Text>
