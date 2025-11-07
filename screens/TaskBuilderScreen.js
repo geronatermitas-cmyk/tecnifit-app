@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { generateTaskMock } from '../mock_data';
 
 // Componente para las opciones de entrada
 const InputOption = ({ icon, label, onPress }) => (
@@ -17,12 +18,16 @@ export default function TaskBuilderScreen() {
 
   const handleGenerateTask = () => {
     setLoading(true);
+    const query = description.trim();
+
     // Simulación de la llamada a la IA
     setTimeout(() => {
+      const iaResult = generateTaskMock(query);
       setLoading(false);
-      // Navegar a una pantalla de resultados o mostrar la guía
-      // Por ahora, navegamos a ResultsScreen con un mock de resultado
-      navigation.navigate('Results', { query: description || 'Guía de reparación IA' });
+      
+      // Navegar a ResultsScreen, pasando el resultado de la IA como un array de un solo elemento
+      // Esto permite que ResultsScreen lo muestre como un resultado de búsqueda normal
+      navigation.navigate('Results', { query: query, results: [iaResult] });
     }, 1500);
   };
 

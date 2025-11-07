@@ -7,20 +7,36 @@ import { useRoute } from '@react-navigation/native';
 const { width: screenWidth } = Dimensions.get('window');
 
 // Componente para renderizar cada resultado
-const ResultItem = ({ item }) => (
-  <TouchableOpacity style={styles.itemContainer}>
-    <Image source={{ uri: item.image }} style={styles.itemImage} />
-    <View style={styles.itemDetails}>
-      <Text style={styles.itemTitle}>{item.title}</Text>
-      <Text style={styles.itemDescription} numberOfLines={2}>{item.description}</Text>
-      <View style={styles.itemFooter}>
-        <Text style={styles.itemCategory}>🏷️ {item.category}</Text>
-        <Text style={styles.itemTime}>⏱️ {item.time}</Text>
-        <Text style={styles.itemDifficulty}>⭐ {item.difficulty}</Text>
+const ResultItem = ({ item }) => {
+  const isIATask = item.category === 'IA Generada' && item.steps;
+
+  return (
+    <TouchableOpacity style={styles.itemContainer} activeOpacity={isIATask ? 1 : 0.7}>
+      <Image source={{ uri: item.image }} style={styles.itemImage} />
+      <View style={styles.itemDetails}>
+        <Text style={styles.itemTitle}>{item.title}</Text>
+        <Text style={styles.itemDescription} numberOfLines={isIATask ? 1 : 2}>{item.description}</Text>
+        
+        {isIATask && (
+          <View style={styles.iaStepsContainer}>
+            <Text style={styles.iaStepsTitle}>Pasos de la Guía IA:</Text>
+            {item.steps.map((step, index) => (
+              <Text key={index} style={styles.iaStepText}>
+                {step}
+              </Text>
+            ))}
+          </View>
+        )}
+
+        <View style={styles.itemFooter}>
+          <Text style={styles.itemCategory}>🏷️ {item.category}</Text>
+          <Text style={styles.itemTime}>⏱️ {item.time}</Text>
+          <Text style={styles.itemDifficulty}>⭐ {item.difficulty}</Text>
+        </View>
       </View>
-    </View>
-  </TouchableOpacity>
-);
+    </TouchableOpacity>
+  );
+};
 
 export default function ResultsScreen() {
   const route = useRoute();
@@ -125,6 +141,24 @@ const styles = StyleSheet.create({
   itemDifficulty: {
     fontSize: 12,
     color: '#0F172A',
+  },
+  iaStepsContainer: {
+    marginTop: 8,
+    marginBottom: 8,
+    padding: 10,
+    backgroundColor: '#EBF8FF', // Fondo azul claro para destacar
+    borderRadius: 8,
+  },
+  iaStepsTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#0F172A',
+    marginBottom: 4,
+  },
+  iaStepText: {
+    fontSize: 12,
+    color: '#334155',
+    lineHeight: 18,
   },
   noResultsContainer: {
     flex: 1,

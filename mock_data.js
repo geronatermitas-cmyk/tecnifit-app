@@ -1,3 +1,4 @@
+// Datos de resultados de búsqueda para la Landing Page
 export const mockSearchResults = [
   {
     id: '1',
@@ -45,4 +46,54 @@ export const searchMock = (query) => {
     item.description.toLowerCase().includes(lowerQuery) ||
     item.category.toLowerCase().includes(lowerQuery)
   );
+};
+
+// Función de simulación de IA para TaskBuilderScreen
+export const generateTaskMock = (query) => {
+  const lowerQuery = query.toLowerCase();
+  
+  // Simulación de un resultado de IA basado en palabras clave
+  let title = `Guía de Reparación IA: ${query}`;
+  let steps = [
+    "Paso 1: Preparación y Seguridad. Asegura el vehículo y reúne las herramientas necesarias.",
+    "Paso 2: Diagnóstico. Localiza la pieza o el área descrita en la consulta.",
+    "Paso 3: Desmontaje. Retira los componentes necesarios para acceder a la pieza principal.",
+    "Paso 4: Reemplazo. Instala la nueva pieza o realiza la reparación específica.",
+    "Paso 5: Montaje y Prueba. Vuelve a montar los componentes y verifica el funcionamiento."
+  ];
+  let estimatedTime = "45 min";
+  let difficulty = "Medio";
+
+  if (lowerQuery.includes('filtro') || lowerQuery.includes('aceite')) {
+    title = `Guía IA: Cambio de Filtro y Aceite para ${query.split(' ').pop()}`;
+    steps = [
+      "Paso 1: Drenar el aceite viejo. Coloca la bandeja y quita el tapón del cárter.",
+      "Paso 2: Reemplazar el filtro. Quita el filtro viejo y coloca el nuevo, lubricando la junta.",
+      "Paso 3: Rellenar con aceite nuevo. Vierte la cantidad correcta de aceite.",
+      "Paso 4: Comprobar niveles. Enciende el motor brevemente y revisa el nivel."
+    ];
+    estimatedTime = "30 min";
+    difficulty = "Fácil";
+  } else if (lowerQuery.includes('freno') || lowerQuery.includes('pastillas')) {
+    title = `Guía IA: Sustitución de Pastillas de Freno para ${query.split(' ').pop()}`;
+    steps = [
+      "Paso 1: Levantar el vehículo y quitar la rueda.",
+      "Paso 2: Retirar la pinza de freno y las pastillas viejas.",
+      "Paso 3: Comprimir el pistón y colocar las pastillas nuevas.",
+      "Paso 4: Volver a montar la pinza y la rueda. Bombea el pedal de freno."
+    ];
+    estimatedTime = "60 min";
+    difficulty = "Difícil";
+  }
+
+  return {
+    id: 'ia-task-' + Date.now(),
+    title: title,
+    description: `Guía generada por IA basada en la consulta: "${query}".`,
+    category: 'IA Generada',
+    time: estimatedTime,
+    difficulty: difficulty,
+    image: 'https://via.placeholder.com/150/000000/FFFFFF?text=IA+Task',
+    steps: steps,
+  };
 };
