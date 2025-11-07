@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet, Dimensions, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AuthModal from '../components/AuthModal';
-import SearchBar from '../components/SearchBar';
+
 
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
@@ -14,17 +14,10 @@ export default function LandingScreen() {
 
   const nav = useNavigation();
   const [authModalVisible, setAuthModalVisible] = useState(false);
-  const [searchResults, setSearchResults] = useState(null);
 
 
-  const handleSearch = (results) => {
-    setSearchResults(results);
-    Alert.alert(
-      'Resultados de búsqueda',
-      `Se encontraron ${results.database.length + results.internet.length} resultados para "${results.query}"`,
-      [{ text: 'OK' }]
-    );
-  };
+
+
 
 
   return (
@@ -96,8 +89,7 @@ export default function LandingScreen() {
 
       </ScrollView>
 
-      {/* SearchBar en la parte inferior */}
-      <SearchBar onSearch={handleSearch} />
+
 
       {/* Modal de autenticación */}
       <AuthModal
