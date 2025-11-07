@@ -18,7 +18,9 @@ export default function SignupScreen() {
       await signUp({ name, email: email.trim(), password });
       nav.reset({ index: 0, routes: [{ name: 'Panel' }] });
     } catch (e) {
-      Alert.alert('No se pudo crear cuenta', e?.message || 'Inténtalo de nuevo');
+      // Usar console.error en lugar de Alert para compatibilidad web
+      console.error('Error al crear cuenta:', e);
+      // Podríamos usar un Toast o un componente de error visible en la UI
     } finally {
       setBusy(false);
     }

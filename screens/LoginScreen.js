@@ -36,7 +36,10 @@ export default function LoginScreen() {
 
     } catch (e) {
 
-      Alert.alert('No se pudo iniciar sesión', e?.message || 'Inténtalo de nuevo');
+      // Usar console.error en lugar de Alert para compatibilidad web
+      console.error('Error al iniciar sesión:', e);
+      // Podríamos usar un Toast o un componente de error visible en la UI
+      // Por ahora, solo logueamos el error.
 
     } finally {
 

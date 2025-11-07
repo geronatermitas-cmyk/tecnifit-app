@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+
 import * as SecureStore from 'expo-secure-store';
 
 
@@ -18,7 +18,6 @@ const Ctx = createContext(null);
 
 
 export function AuthProvider({ children }) {
-  const navigation = useNavigation();
 
 const [user, setUser] = useState(null);
 
@@ -99,12 +98,9 @@ const signIn = async ({ email, password }) => {
 
 	const current = user ?? { token: 'demo-token', email, name: email.split('@')[0], role: 'free' };
 
-	await persist(current);
+		await persist(current);
 
-	// Navegar al panel después de un inicio de sesión exitoso
-	navigation.reset({ index: 0, routes: [{ name: 'Panel' }] });
-
-	return current;
+		return current;
 
 	};
 
@@ -114,12 +110,9 @@ const signUp = async ({ name, email, password }) => {
 
 	const newUser = { token: 'demo-token', email, name, role: 'free' };
 
-	await persist(newUser);
+		await persist(newUser);
 
-	// Navegar al panel después de un registro exitoso
-	navigation.reset({ index: 0, routes: [{ name: 'Panel' }] });
-
-	return newUser;
+		return newUser;
 
 	};
 
