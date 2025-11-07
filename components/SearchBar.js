@@ -121,16 +121,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopWidth: 1,
     borderTopColor: '#E2E8F0',
+    // Centrar y limitar ancho
+    alignItems: 'center',
   },
   searchBox: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#F8FAFC',
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
+    // Aumentar visibilidad del borde
+    borderWidth: 2,
+    borderColor: '#2563EB',
     paddingHorizontal: 12,
     height: 48,
+    width: '100%',
+    maxWidth: 600, // Limitar ancho
   },
   icon: {
     marginRight: 8,
@@ -157,6 +162,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 12,
     gap: 8,
+    // Limitar ancho para que coincida con searchBox
+    width: '100%',
+    maxWidth: 600,
   },
   suggestionTag: {
     flexDirection: 'row',
