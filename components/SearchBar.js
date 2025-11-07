@@ -115,9 +115,9 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#E2E8F0',
+    backgroundColor: 'transparent',
+    borderTopWidth: 0,
+    borderTopColor: 'transparent',
     // Ajuste para que la decoración se vea
     paddingTop: 20, // Aumentar el padding superior para dar espacio a la decoración
     // Centrar y limitar ancho
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   searchBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F8FAFC',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Fondo blanco semitransparente para el input
     borderRadius: 12,
     // Aumentar visibilidad del borde
     borderWidth: 2,
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 620, // Un poco más ancho que la barra de búsqueda
     height: 52,
-    backgroundColor: '#EBF4FF', // Fondo azul muy claro
+    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Fondo muy transparente para la decoración
     borderRadius: 16,
     borderWidth: 1,
     borderColor: '#BFDBFE',

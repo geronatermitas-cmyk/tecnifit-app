@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     width: screenWidth,
     height: screenHeight,
     overflow: 'hidden',
-    backgroundColor: '#F8FAFC',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Fondo blanco semitransparente para legibilidad
     position: 'absolute', // Fija la imagen en el fondo
     top: 0,
     left: 0,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 20,
     paddingTop: 24,
-    backgroundColor: '#fff', // Asegura que el contenido que se desplaza tenga fondo blanco
+    backgroundColor: 'transparent', // Fondo transparente para que se vea la imagen de héroe
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     marginTop: -40, // Superpone ligeramente con la imagen
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   },
   featureCard: {
     width: '48%', // Dos tarjetas por fila
-    backgroundColor: '#F8FAFC',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Fondo blanco semitransparente para legibilidad
     borderRadius: 16,
     padding: 16,
     marginBottom: 16,
