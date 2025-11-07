@@ -15,6 +15,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 import { AuthProvider } from './store/AuthStore';
+import { UIProvider } from './store/UIContext';
 
 import { IntakeProvider } from './store/IntakeStore';
 
@@ -120,9 +121,11 @@ return (
 
 <NavigationContainer>
 
-<RootNavigator />
+	<UIProvider>
+	<RootNavigator />
+	</UIProvider>
 
-</NavigationContainer>
+	</NavigationContainer>
 
 </IntakeProvider>
 

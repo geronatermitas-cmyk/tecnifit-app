@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { View, Text, Pressable, TouchableOpacity, StyleSheet } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
+import { useUI } from '../store/UIContext';
 
 // import { Ionicons } from '@expo/vector-icons'; // Eliminado por problemas de compatibilidad
 
@@ -12,6 +13,7 @@ import { useAuth } from '../store/AuthStore';
 
 
 export default function MenuButton({ navigation }) {
+  const { openAuthModal } = useUI();
 
   // const navigation = useNavigation(); // Usamos el prop navigation de App.js
 
@@ -52,9 +54,8 @@ export default function MenuButton({ navigation }) {
 
         onPress={() => {
           if (!user) {
-            // Enviar señal a LandingScreen para abrir el AuthModal
-            // Usamos push para forzar la actualización del parámetro, incluso si ya estamos en Landing
-            navigation.push('Landing', { openAuthModal: true });
+            // Usamos el contexto global para abrir el AuthModal de forma fiable
+            openAuthModal();
           } else {
             setOpen(v => !v);
           }

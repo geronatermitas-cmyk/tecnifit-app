@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet, Dimensions, Alert } from 'react-native';
-import { useNavigation, useRoute, useFocusEffect } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useUI } from '../store/UIContext';
 import AuthModal from '../components/AuthModal';
 import SearchBar from '../components/SearchBar';
 
@@ -16,21 +17,8 @@ export default function LandingScreen() {
 
   const nav = useNavigation();
   const route = useRoute();
-  const [authModalVisible, setAuthModalVisible] = useState(false);
+  const { authModalVisible, closeAuthModal } = useUI();
   const [searchResults, setSearchResults] = useState(null);
-
-  // Usamos useFocusEffect para asegurar que el modal se abra cada vez que la pantalla se enfoca
-  // y el parámetro esté presente, incluso si la navegación es a la misma pantalla.
-  useFocusEffect(
-    React.useCallback(() => {
-      if (route.params?.openAuthModal) {
-        setAuthModalVisible(true);
-        // Limpiar el parámetro inmediatamente para evitar que se abra de nuevo
-        nav.setParams({ openAuthModal: undefined });
-      }
-      // El array de dependencias está vacío porque queremos que se ejecute en cada foco
-    }, [route.params?.openAuthModal]) // Dependencia clave para re-ejecutar cuando el parámetro cambia
-  );
 
 
 
@@ -114,7 +102,7 @@ export default function LandingScreen() {
       {/* Modal de autenticación */}
       <AuthModal
         visible={authModalVisible}
-        onClose={() => setAuthModalVisible(false)}
+        onClose={closeAuthModal}
       />
     </View>
   );
