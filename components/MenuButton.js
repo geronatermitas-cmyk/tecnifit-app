@@ -65,7 +65,7 @@ export default function MenuButton({ navigation }) {
 
       >
 
-        <Text style={{ fontSize: 26, color: '#fff' }}>{user ? "👤" : "⚪"}</Text>
+        <Text style={{ fontSize: 26, color: '#fff' }}>{user ? "👤" : "👤"}</Text>
 
       </Pressable>
 
