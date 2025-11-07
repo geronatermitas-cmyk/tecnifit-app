@@ -127,11 +127,14 @@ const styles = StyleSheet.create({
   searchBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Fondo blanco semitransparente para el input
+    backgroundColor: 'rgba(255, 255, 255, 0.5)', // Fondo más transparente para el efecto cristal
     borderRadius: 12,
-    // Aumentar visibilidad del borde
-    borderWidth: 2,
-    borderColor: '#2563EB',
+    // Efecto de vidrio esmerilado (Frosted Glass)
+    // Nota: backdropFilter solo funciona en React Native Web
+    backdropFilter: 'blur(8px)',
+    // Borde más sutil
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.8)',
     paddingHorizontal: 12,
     height: 48,
     width: '100%',
@@ -189,7 +192,7 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 620, // Un poco más ancho que la barra de búsqueda
     height: 52,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Fondo muy transparente para la decoración
+    backgroundColor: 'rgba(255, 255, 255, 0.05)', // Fondo casi invisible para la decoración
     borderRadius: 16,
     borderWidth: 1,
     borderColor: '#BFDBFE',
