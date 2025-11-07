@@ -2,9 +2,12 @@
 
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, StyleSheet, Text, ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { searchMock } from '../mock_data';
 
 
-export default function SearchBar({ onSearch, placeholder = "Buscar tareas, tutoriales..." }) {
+export default function SearchBar({ placeholder = "Buscar tareas, tutoriales..." }) {
+  const nav = useNavigation();
 
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
@@ -18,19 +21,11 @@ export default function SearchBar({ onSearch, placeholder = "Buscar tareas, tuto
 
     setLoading(true);
     try {
-      // Simular búsqueda en base de datos e internet
-      const results = {
-        query: query.trim(),
-        database: [
-          { id: 1, title: 'Resultado DB 1', type: 'task', source: 'database' },
-        ],
-        internet: [
-          { id: 2, title: 'Resultado Web 1', type: 'tutorial', source: 'internet', url: 'https://example.com' },
-        ],
-      };
+      // Simular búsqueda con datos mock
+      const results = searchMock(query.trim());
 
-      // Llamar callback con resultados
-      onSearch?.(results);
+      // Navegar a ResultsScreen con la consulta y los resultados
+      nav.navigate('Results', { query: query.trim(), results });
 
       // Limpiar input
       setQuery('');
