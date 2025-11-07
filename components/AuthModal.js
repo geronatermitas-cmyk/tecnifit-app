@@ -1,7 +1,6 @@
 // @ts-nocheck
 
 import React, { useState } from 'react';
-import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../store/AuthStore';
