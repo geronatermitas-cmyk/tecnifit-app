@@ -53,7 +53,8 @@ export default function MenuButton({ navigation }) {
         onPress={() => {
           if (!user) {
             // Enviar señal a LandingScreen para abrir el AuthModal
-            navigation.navigate('Landing', { openAuthModal: true });
+            // Usamos push para forzar la actualización del parámetro, incluso si ya estamos en Landing
+            navigation.push('Landing', { openAuthModal: true });
           } else {
             setOpen(v => !v);
           }
