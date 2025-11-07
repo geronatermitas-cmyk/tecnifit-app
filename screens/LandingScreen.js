@@ -55,6 +55,12 @@ export default function LandingScreen() {
         {/* Contenido debajo de la imagen */}
         <View style={styles.contentContainer}>
 
+          {/* Líneas de Énfasis (Decoración Superior) */}
+          <View style={styles.titleDecorationContainer}>
+            <View style={styles.titleLine} />
+            <View style={styles.titleLine} />
+          </View>
+
           {/* Título principal */}
           <Text style={styles.mainTitle}>TecnicFit Pro</Text>
 
@@ -169,6 +175,20 @@ const styles = StyleSheet.create({
     color: '#0F172A',
     marginBottom: 16,
     textAlign: 'center',
+  },
+  titleDecorationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 20,
+    marginBottom: 12,
+  },
+  titleLine: {
+    width: '30%',
+    height: 2,
+    backgroundColor: '#2563EB',
+    opacity: 0.5,
+    borderRadius: 1,
   },
   featuresGrid: {
     flexDirection: 'row',
