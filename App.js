@@ -91,7 +91,7 @@ headerRight: ({ navigation }) => <MenuButton navigation={navigation} />, // ← 
 
 {/* COMUNES */}
 
-<Stack.Screen name="Results" component={ResultsScreen} options={{ title: 'Resultados', headerRight: () => <MenuButton isResultsScreen={true} /> }} />
+<Stack.Screen name="Results" component={ResultsScreen} options={{ title: 'Resultados', headerRight: ({ navigation }) => <MenuButton navigation={navigation} /> }} />
 
 <Stack.Screen name="Plans" component={PlansScreen} options={{ title: 'Planes' }} />
 
