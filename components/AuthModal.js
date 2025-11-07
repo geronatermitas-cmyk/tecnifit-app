@@ -1,164 +1,50 @@
 // @ts-nocheck
 
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, Pressable, Alert, TextInput, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, Pressable, Alert } from 'react-native';
 import { useAuth } from '../store/AuthStore';
-
-
-// Componente de Login
-function LoginView({ onLogin, onSwitchToSignup, loading }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleLogin = () => {
-    if (!email || !password) {
-      Alert.alert('Error', 'Por favor, introduce email y contraseña.');
-      return;
-    }
-    onLogin({ email, password });
-  };
-
-  return (
-    <>
-      <Text style={styles.title}>Iniciar Sesión</Text>
-      <Text style={styles.subtitle}>Accede a tu cuenta con email y contraseña</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Contraseña"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-
-      <TouchableOpacity
-        style={[styles.button, styles.loginButton, loading && { opacity: 0.7 }]}
-        onPress={handleLogin}
-        disabled={loading}
-      >
-        {loading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Text style={[styles.buttonText, { color: '#fff' }]}>Iniciar Sesión</Text>
-        )}
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={onSwitchToSignup}>
-        <Text style={styles.linkText}>¿No tienes cuenta? **Crear Cuenta**</Text>
-      </TouchableOpacity>
-
-      <View style={styles.divider}>
-        <View style={styles.line} />
-        <Text style={styles.dividerText}>o</Text>
-        <View style={styles.line} />
-      </View>
-    </>
-  );
-}
-
-// Componente de Registro
-function SignupView({ onSignup, onSwitchToLogin, loading }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSignup = () => {
-    if (!email || !password) {
-      Alert.alert('Error', 'Por favor, introduce email y contraseña.');
-      return;
-    }
-    onSignup({ email, password });
-  };
-
-  return (
-    <>
-      <Text style={styles.title}>Crear Cuenta</Text>
-      <Text style={styles.subtitle}>Regístrate con email y contraseña</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Contraseña"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-
-      <TouchableOpacity
-        style={[styles.button, styles.loginButton, loading && { opacity: 0.7 }]}
-        onPress={handleSignup}
-        disabled={loading}
-      >
-        {loading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Text style={[styles.buttonText, { color: '#fff' }]}>Crear Cuenta</Text>
-        )}
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={onSwitchToLogin}>
-        <Text style={styles.linkText}>¿Ya tienes cuenta? **Iniciar Sesión**</Text>
-      </TouchableOpacity>
-
-      <View style={styles.divider}>
-        <View style={styles.line} />
-        <Text style={styles.dividerText}>o</Text>
-        <View style={styles.line} />
-      </View>
-    </>
-  );
-}
 
 
 export default function AuthModal({ visible, onClose }) {
 
-  const { signIn, signUp } = useAuth();
+  const { signIn } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [view, setView] = useState('login'); // 'login' | 'signup'
 
-  const handleLogin = async ({ email, password }) => {
+
+  const handleGoogleLogin = async () => {
     setLoading(true);
     try {
-      await signIn({ email, password });
-      Alert.alert('Éxito', 'Sesión iniciada correctamente.');
+      // Simulación de login con Google
+      await signIn({
+        email: 'usuario@gmail.com',
+        password: 'google-oauth-token'
+      });
+      Alert.alert('Éxito', 'Iniciado sesión con Google');
       onClose();
     } catch (error) {
-      Alert.alert('Error', error.message || 'Error al iniciar sesión.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSignup = async ({ email, password }) => {
-    setLoading(true);
-    try {
-      // Simulación de registro
-      await signUp({ email, password });
-      Alert.alert('Éxito', 'Cuenta creada. Sesión iniciada.');
-      onClose();
-    } catch (error) {
-      Alert.alert('Error', error.message || 'Error al crear cuenta.');
+      Alert.alert('Error', error.message);
     } finally {
       setLoading(false);
     }
   };
 
 
-
+  const handleAppleLogin = async () => {
+    setLoading(true);
+    try {
+      // Simulación de login con Apple
+      await signIn({
+        email: 'usuario@icloud.com',
+        password: 'apple-oauth-token'
+      });
+      Alert.alert('Éxito', 'Iniciado sesión con Apple');
+      onClose();
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   return (
@@ -175,19 +61,9 @@ export default function AuthModal({ visible, onClose }) {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
 
-          {view === 'login' ? (
-            <LoginView
-              onLogin={handleLogin}
-              onSwitchToSignup={() => setView('signup')}
-              loading={loading}
-            />
-          ) : (
-            <SignupView
-              onSignup={handleSignup}
-              onSwitchToLogin={() => setView('login')}
-              loading={loading}
-            />
-          )}
+          {/* Título */}
+          <Text style={styles.title}>Iniciar sesión rápido</Text>
+          <Text style={styles.subtitle}>Continúa con tu cuenta</Text>
 
           {/* Botón Google */}
           <TouchableOpacity
@@ -209,7 +85,14 @@ export default function AuthModal({ visible, onClose }) {
             <Text style={[styles.buttonText, { color: '#fff' }]}>Continuar con Apple</Text>
           </TouchableOpacity>
 
-          {/* Botón Invitado */}
+          {/* Divisor */}
+          <View style={styles.divider}>
+            <View style={styles.line} />
+            <Text style={styles.dividerText}>o</Text>
+            <View style={styles.line} />
+          </View>
+
+          {/* Botón Cerrar */}
           <TouchableOpacity
             style={styles.closeButton}
             onPress={onClose}
@@ -242,7 +125,7 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
     width: '90%',
     maxWidth: 400,
-    maxHeight: '90%', // Aumentar un poco para el formulario
+    maxHeight: '80%',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
@@ -291,26 +174,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: '#0F172A',
-  },
-  loginButton: {
-    backgroundColor: '#2563EB',
-    marginBottom: 12,
-  },
-  linkText: {
-    textAlign: 'center',
-    color: '#0F172A',
-    fontSize: 14,
-    marginBottom: 16,
-  },
-  input: {
-    backgroundColor: '#F8FAFC',
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-    borderRadius: 12,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    marginBottom: 12,
-    fontSize: 16,
   },
   divider: {
     flexDirection: 'row',
