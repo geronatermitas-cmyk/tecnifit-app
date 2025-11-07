@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Image,
+  ScrollView,
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
@@ -100,69 +102,101 @@ export default function LandingScreen() {
 
     >
 
-      <View style={styles.bg}>
+      <ScrollView style={styles.container}>
 
-        <View style={styles.searchBoxWrap}>
+        <View style={styles.heroSection}>
 
-          <Text style={styles.title}>ASISTENTE DIGITAL DE TAREAS</Text>
+          <Image
 
-          <Text style={styles.subtitle}>GUÍA. APRENDE. HAZ.</Text>
+            source={require('../assets/images/robot-mascot.png')}
 
+            style={styles.mascot}
 
-          <TextInput
-
-            value={q}
-
-            onChangeText={setQ}
-
-            placeholder="Describe tu tarea..."
-
-            placeholderTextColor="#94A3B8"
-
-            style={styles.input}
-
-            returnKeyType="search"
-
-            onSubmitEditing={onSearch}
+            resizeMode="contain"
 
           />
 
+        </View>
 
-          <View style={styles.buttonsWrap}>
+        <View style={styles.bg}>
 
-            {buttons.map(b => (
+          <View style={styles.searchBoxWrap}>
 
-              <TouchableOpacity
+            <Text style={styles.title}>ASISTENTE DIGITAL DE TAREAS</Text>
 
-                key={b.key}
+            <Text style={styles.subtitle}>GUÍA. APRENDE. HAZ.</Text>
 
-                onPress={b.onPress}
 
-                style={[
+            <TextInput
 
-                  styles.btnBase,
+              value={q}
 
-                  b.primary ? styles.btnPrimary : styles.btnGhost,
+              onChangeText={setQ}
 
-                ]}
+              placeholder="Describe tu tarea..."
 
-              >
+              placeholderTextColor="#94A3B8"
 
-                <Text style={[styles.btnText, b.primary && { color: '#fff' }]}>
+              style={styles.input}
 
-                  {b.label}
+              returnKeyType="search"
 
-                </Text>
+              onSubmitEditing={onSearch}
 
-              </TouchableOpacity>
+            />
 
-            ))}
+
+            <View style={styles.buttonsWrap}>
+
+              {buttons.map(b => (
+
+                <TouchableOpacity
+
+                  key={b.key}
+
+                  onPress={b.onPress}
+
+                  style={[
+
+                    styles.btnBase,
+
+                    b.primary ? styles.btnPrimary : styles.btnGhost,
+
+                  ]}
+
+                >
+
+                  <Text style={[styles.btnText, b.primary && { color: '#fff' }]}>
+
+                    {b.label}
+
+                  </Text>
+
+                </TouchableOpacity>
+
+              ))}
+
+            </View>
 
           </View>
 
         </View>
 
-      </View>
+        <View style={styles.mockupSection}>
+
+          <Image
+
+            source={require('../assets/images/mockup-phone.png')}
+
+            style={styles.mockup}
+
+            resizeMode="contain"
+
+          />
+
+        </View>
+
+      </ScrollView>
 
     </KeyboardAvoidingView>
 
@@ -173,7 +207,13 @@ export default function LandingScreen() {
 
 const styles = StyleSheet.create({
 
-  bg: { flex: 1, width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: '#F8FAFC' },
+  container: { flex: 1, backgroundColor: '#F8FAFC' },
+
+  heroSection: { paddingVertical: 20, alignItems: 'center', justifyContent: 'center' },
+
+  mascot: { width: 150, height: 150 },
+
+  bg: { width: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: '#F8FAFC', paddingVertical: 20 },
 
   searchBoxWrap: {
 
@@ -214,5 +254,9 @@ const styles = StyleSheet.create({
   btnPrimary: { backgroundColor: '#2563EB' },
 
   btnText: { fontWeight: '800', color: '#0F172A' },
+
+  mockupSection: { paddingVertical: 20, paddingHorizontal: 20, alignItems: 'center' },
+
+  mockup: { width: '100%', height: 400, borderRadius: 12 },
 
 });
