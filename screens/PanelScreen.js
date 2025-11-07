@@ -1,93 +1,198 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, Alert } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAuth } from '../store/AuthStore';
-import { useIntake } from '../store/IntakeStore';
 import { usePlan } from '../store/PlanStore';
+
+// Componente de tarjeta de navegación
+const NavCard = ({ icon, title, subtitle, onPress }) => (
+  <TouchableOpacity style={styles.navCard} onPress={onPress}>
+    <Text style={styles.navIcon}>{icon}</Text>
+    <View style={styles.navTextContainer}>
+      <Text style={styles.navTitle}>{title}</Text>
+      <Text style={styles.navSubtitle}>{subtitle}</Text>
+    </View>
+    <Text style={styles.navArrow}>›</Text>
+  </TouchableOpacity>
+);
 
 export default function PanelScreen() {
   const navigation = useNavigation();
-  const insets = useSafeAreaInsets();
-  const { user } = useAuth();
-  const { isFree } = usePlan();
-  const { items = [] } = (typeof useIntake === 'function' ? useIntake() : { items: [] });
-  const [activeTab, setActiveTab] = useState('search');
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [q, setQ] = useState('');
+  const { user, limits, usedToday } = useAuth();
+  const { currentPlan } = usePlan(); // Asumiendo que usePlan expone currentPlan
 
-  const onGenerateList = () => {
-    const query = (q || '').trim();
-    setSearchOpen(false);
-    navigation.navigate('Results', { mode: 'match', q: query, from: 'panel' });
-  };
-
-  const onGenerateTask = () => {
-    navigation.navigate('TaskBuilder');
-  };
+  const userName = user?.name || user?.email?.split('@')[0] || 'Usuario';
+  const currentLimit = limits?.maxTasksPerDay || 3;
+  const tasksRemaining = currentLimit - (usedToday || 0);
 
   return (
-    <View style={[styles.container, { paddingBottom: 78 + insets.bottom }]}>
-      <Text style={styles.hi}>Hola{user?.name ? `, ${user.name}` : ''}</Text>
-      <Text style={styles.quota}>Cuota: 0/3</Text>
-      <View style={styles.tabs}>
-        <TouchableOpacity onPress={() => setActiveTab('search')} style={[styles.tab, activeTab === 'search' && styles.tabActive]}>
-          <Text style={[styles.tabTxt, activeTab === 'search' && styles.tabTxtActive]}>Buscar</Text>
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      {/* Sección de Bienvenida y Cuota */}
+      <View style={styles.header}>
+        <Text style={styles.hi}>Hola, {userName}</Text>
+        <Text style={styles.planText}>Plan Actual: {currentPlan?.name || 'Gratuito'}</Text>
+      </View>
+
+      {/* Tarjeta de Cuota */}
+      <View style={styles.quotaCard}>
+        <Text style={styles.quotaTitle}>Tareas IA Restantes Hoy</Text>
+        <Text style={styles.quotaCount}>{tasksRemaining} / {currentLimit}</Text>
+        <Text style={styles.quotaSubtext}>
+          {tasksRemaining > 0 
+            ? `Tienes ${tasksRemaining} tareas IA disponibles.`
+            : 'Has alcanzado tu límite diario. Considera un plan Pro.'
+          }
+        </Text>
+        <TouchableOpacity 
+          style={styles.upgradeButton} 
+          onPress={() => navigation.navigate('Plans')}
+        >
+          <Text style={styles.upgradeButtonText}>Ver Planes Pro</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Búsqueda</Text>
-        <Text style={styles.subtle}>Toca "Buscar" para abrir el bocadillo y generar lista.</Text>
-      </View>
-      <View style={[styles.bottomBar, { bottom: 16 + insets.bottom }]}>
-        <TouchableOpacity style={[styles.btnGhost, { marginRight: 10 }]} onPress={() => setSearchOpen(true)}>
-          <Text style={styles.btnGhostTxt}>Buscar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnPrimary} onPress={onGenerateTask}>
-          <Text style={styles.btnPrimaryTxt}>Genera tarea</Text>
-        </TouchableOpacity>
-      </View>
-      <Modal visible={searchOpen} transparent animationType="fade" onRequestClose={() => setSearchOpen(false)}>
-        <View style={styles.backdrop}>
-          <View style={styles.sheet}>
-            <Text style={styles.sheetTitle}>Generar lista</Text>
-            <TextInput value={q} onChangeText={setQ} placeholder='Describe tu tarea, p. ej. "cambiar rueda"' style={styles.input} returnKeyType="search" onSubmitEditing={onGenerateList} />
-            <View style={{ flexDirection: 'row', gap: 10 }}>
-              <TouchableOpacity style={[styles.btn, styles.btnGhost]} onPress={() => setSearchOpen(false)}>
-                <Text style={[styles.btnTxt, styles.btnGhostTxt]}>Cancelar</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.btn, styles.btnPrimary]} onPress={onGenerateList}>
-                <Text style={styles.btnTxt}>Generar lista</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
-    </View>
+
+      {/* Acciones Principales */}
+      <Text style={styles.sectionTitle}>Acciones Rápidas</Text>
+      <NavCard 
+        icon="🛠️" 
+        title="Generar Nueva Tarea IA" 
+        subtitle="Crea una guía de reparación paso a paso al instante." 
+        onPress={() => navigation.navigate('TaskBuilder')} 
+      />
+      <NavCard 
+        icon="📚" 
+        title="Historial de Tareas" 
+        subtitle="Revisa y reutiliza tus guías de reparación anteriores." 
+        onPress={() => navigation.navigate('History')} 
+      />
+      <NavCard 
+        icon="⭐" 
+        title="Mis Planes" 
+        subtitle="Gestiona tu suscripción y beneficios Pro." 
+        onPress={() => navigation.navigate('Plans')} 
+      />
+      
+      {/* Sección de Cuenta */}
+      <Text style={styles.sectionTitle}>Configuración de Cuenta</Text>
+      <NavCard 
+        icon="👤" 
+        title="Mi Perfil" 
+        subtitle="Actualiza tu información personal y preferencias." 
+        onPress={() => { /* navigation.navigate('Profile') */ }} 
+      />
+      <NavCard 
+        icon="🚪" 
+        title="Cerrar Sesión" 
+        subtitle="Finaliza tu sesión actual." 
+        onPress={async () => {
+          await user.signOut();
+          navigation.reset({ index: 0, routes: [{ name: 'Landing' }] });
+        }} 
+      />
+
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F8FAFC', padding: 16 },
-  hi: { fontSize: 28, fontWeight: '900', color: '#0F172A' },
-  quota: { color: '#64748B', marginBottom: 16 },
-  tabs: { flexDirection: 'row', gap: 12, marginBottom: 12 },
-  tab: { paddingVertical: 10, paddingHorizontal: 16, borderRadius: 14, backgroundColor: '#E5E7EB' },
-  tabActive: { backgroundColor: '#2563EB' },
-  tabTxt: { fontWeight: '800', color: '#334155' },
-  tabTxtActive: { color: '#fff' },
-  card: { backgroundColor: '#fff', borderRadius: 16, padding: 16, borderWidth: 1, borderColor: '#E2E8F0' },
-  cardTitle: { fontSize: 16, fontWeight: '900', color: '#0F172A', marginBottom: 6 },
-  subtle: { color: '#64748B' },
-  bottomBar: { position: 'absolute', left: 16, right: 16, flexDirection: 'row', alignItems: 'center' },
-  btnGhost: { flex: 1, borderWidth: 1, borderColor: '#CBD5E1', borderRadius: 14, alignItems: 'center', paddingVertical: 14, backgroundColor: '#FFF' },
-  btnGhostTxt: { fontWeight: '800', color: '#0F172A' },
-  btnPrimary: { flex: 1, backgroundColor: '#2563EB', borderRadius: 14, alignItems: 'center', paddingVertical: 14 },
-  btnPrimaryTxt: { color: '#fff', fontWeight: '800' },
-  backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.25)', justifyContent: 'flex-end' },
-  sheet: { backgroundColor: '#fff', padding: 16, borderTopLeftRadius: 16, borderTopRightRadius: 16, gap: 8 },
-  sheetTitle: { fontSize: 18, fontWeight: '900', color: '#0F172A', marginBottom: 4 },
-  input: { backgroundColor: '#fff', borderColor: '#E2E8F0', borderWidth: 1, borderRadius: 14, paddingHorizontal: 14, paddingVertical: 12, fontSize: 16, marginBottom: 8 },
-  btn: { alignItems: 'center', paddingVertical: 14, borderRadius: 12 },
-  btnTxt: { color: '#fff', fontWeight: '900', fontSize: 16 },
+  container: { 
+    flex: 1, 
+    backgroundColor: '#F8FAFC', 
+  },
+  content: {
+    padding: 20,
+  },
+  header: {
+    marginBottom: 20,
+  },
+  hi: { 
+    fontSize: 32, 
+    fontWeight: '900', 
+    color: '#0F172A',
+  },
+  planText: {
+    fontSize: 16,
+    color: '#2563EB',
+    fontWeight: '700',
+    marginTop: 4,
+  },
+  quotaCard: {
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 20,
+    marginBottom: 30,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  quotaTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#0F172A',
+    marginBottom: 4,
+  },
+  quotaCount: {
+    fontSize: 48,
+    fontWeight: '900',
+    color: '#2563EB',
+    marginBottom: 8,
+  },
+  quotaSubtext: {
+    fontSize: 14,
+    color: '#64748B',
+    marginBottom: 15,
+  },
+  upgradeButton: {
+    backgroundColor: '#FBBF24', // Amarillo para destacar
+    paddingVertical: 12,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  upgradeButtonText: {
+    color: '#0F172A',
+    fontWeight: '800',
+    fontSize: 16,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: '900',
+    color: '#0F172A',
+    marginTop: 10,
+    marginBottom: 15,
+  },
+  navCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 15,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+  },
+  navIcon: {
+    fontSize: 24,
+    marginRight: 15,
+  },
+  navTextContainer: {
+    flex: 1,
+  },
+  navTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#0F172A',
+  },
+  navSubtitle: {
+    fontSize: 12,
+    color: '#64748B',
+  },
+  navArrow: {
+    fontSize: 24,
+    color: '#94A3B8',
+    marginLeft: 10,
+  },
 });

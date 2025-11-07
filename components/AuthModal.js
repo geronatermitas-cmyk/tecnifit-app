@@ -21,8 +21,8 @@ export default function AuthModal({ visible, onClose }) {
         email: 'usuario@gmail.com',
         password: 'google-oauth-token'
       });
-      // El signIn en AuthStore.js ya maneja la navegación a 'Panel'
       onClose();
+      navigation.reset({ index: 0, routes: [{ name: 'Panel' }] });
     } catch (error) {
       console.error('Error al iniciar sesión con Google:', error);
       // Podríamos mostrar un Toast o un mensaje de error aquí si fuera necesario
@@ -40,8 +40,8 @@ export default function AuthModal({ visible, onClose }) {
         email: 'usuario@icloud.com',
         password: 'apple-oauth-token'
       });
-      // El signIn en AuthStore.js ya maneja la navegación a 'Panel'
       onClose();
+      navigation.reset({ index: 0, routes: [{ name: 'Panel' }] });
     } catch (error) {
       console.error('Error al iniciar sesión con Apple:', error);
       // Podríamos mostrar un Toast o un mensaje de error aquí si fuera necesario
