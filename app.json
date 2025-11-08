@@ -6,7 +6,15 @@
       }
     },
     "plugins": [
-      "./withReactNative.js"
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "2.0.0",
+            "enableBundleCompression": false
+          }
+        }
+      ]
     ],
     "android": {
       "package": "com.tecnicfit.ia"
