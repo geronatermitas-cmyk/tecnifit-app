@@ -44,6 +44,8 @@ import TaskBuilderScreen from './screens/TaskBuilderScreen';
 
 import CheckoutScreen from './screens/CheckoutScreen';
 
+import ProfileScreen from './screens/ProfileScreen';
+
 
 import MenuButton from './components/MenuButton';
 import ThreeDotsMenu from './components/ThreeDotsMenu';
@@ -83,6 +85,7 @@ function AuthStack() {
 	      <Stack.Screen name="Results" component={ResultsScreen} options={{ title: 'TecnicFit - Resultados', headerShown: true }} />
 	      <Stack.Screen name="Plans" component={PlansScreen} options={{ title: 'TecnicFit - Planes', headerShown: true }} />
 	      <Stack.Screen name="History" component={HistoryScreen} options={{ title: 'TecnicFit - Historial', headerShown: true }} />
+	      <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'TecnicFit - Mi Perfil', headerShown: false }} />
 	    </Stack.Navigator>
 	  );
 	}
