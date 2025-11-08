@@ -98,13 +98,7 @@ function AuthStack() {
 	  );
 	}
 
-return (
 
-
-
-);
-
-}
 
 
 export default function App() {
