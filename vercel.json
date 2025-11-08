@@ -1,7 +1,6 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "framework": "expo",
   "env": {
     "NODE_ENV": "production"
   }
