@@ -10,6 +10,7 @@ import { useAuth } from '../store/AuthStore';
 
 
 export default function LoginScreen() {
+  const navigation = useNavigation();
 
   const nav = useNavigation();
 
@@ -54,9 +55,15 @@ export default function LoginScreen() {
 
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
 
-      <View style={styles.wrap}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.navigate('Landing')}>
+          <Text style={styles.backBtn}>← Atrás</Text>
+        </TouchableOpacity>
+        <Text style={styles.h1}>Iniciar Sesión</Text>
+        <View style={{ width: 60 }} />
+      </View>
 
-        <Text style={styles.title}>Iniciar sesión</Text>
+      <View style={styles.wrap}>
 
 
         <TextInput
@@ -129,8 +136,22 @@ export default function LoginScreen() {
 
 const styles = StyleSheet.create({
 
-  wrap: { flex: 1, padding: 20, justifyContent: 'center' },
+  wrap: { flex: 1, paddingHorizontal: 20, justifyContent: 'center' },
 
+  h1: { fontSize: 20, fontWeight: '800' },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    marginBottom: 20,
+  },
+  backBtn: {
+    fontSize: 16,
+    color: '#2563EB',
+    fontWeight: '700',
+  },
   title: { fontSize: 28, fontWeight: '900', marginBottom: 16, color: '#0F172A' },
 
   input: {
