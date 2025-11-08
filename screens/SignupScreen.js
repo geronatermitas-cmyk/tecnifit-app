@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../store/AuthStore';
 
 export default function SignupScreen() {
   const navigation = useNavigation();
-  const nav = useNavigation();
   const { signUp } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -18,11 +16,9 @@ export default function SignupScreen() {
     setBusy(true);
     try {
       await signUp({ name, email: email.trim(), password });
-      nav.reset({ index: 0, routes: [{ name: 'Panel' }] });
+      navigation.reset({ index: 0, routes: [{ name: 'Panel' }] });
     } catch (e) {
-      // Usar console.error en lugar de Alert para compatibilidad web
       console.error('Error al crear cuenta:', e);
-      // Podríamos usar un Toast o un componente de error visible en la UI
     } finally {
       setBusy(false);
     }
@@ -44,7 +40,7 @@ export default function SignupScreen() {
         <TouchableOpacity style={[styles.btn, busy && { opacity: 0.7 }]} onPress={onSubmit} disabled={busy}>
           <Text style={styles.btnTxt}>{busy ? 'Creando…' : 'Crear cuenta'}</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => nav.navigate('Login')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text style={styles.link}>¿Ya tienes cuenta? Inicia sesión</Text>
         </TouchableOpacity>
       </View>
