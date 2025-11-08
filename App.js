@@ -59,7 +59,11 @@ function AppStack() {
 }
 
 function RootNavigator() {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
+
+  if (isLoading) {
+    return null; // O un componente de carga (Splash Screen)
+  }
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
