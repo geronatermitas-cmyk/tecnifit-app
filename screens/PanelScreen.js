@@ -18,7 +18,7 @@ const NavCard = ({ icon, title, subtitle, onPress }) => (
 
 export default function PanelScreen() {
   const navigation = useNavigation();
-  const { user, limits, usedToday } = useAuth();
+  const { user, limits, usedToday, signOut } = useAuth();
   const { currentPlan } = usePlan(); // Asumiendo que usePlan expone currentPlan
 
   const userName = user?.name || user?.email?.split('@')[0] || 'Usuario';
@@ -85,7 +85,7 @@ export default function PanelScreen() {
         title="Cerrar Sesión" 
         subtitle="Finaliza tu sesión actual." 
         onPress={async () => {
-          await user.signOut();
+          await signOut();
           navigation.reset({ index: 0, routes: [{ name: 'Landing' }] });
         }} 
       />

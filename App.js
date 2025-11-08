@@ -76,12 +76,12 @@ function AuthStack() {
 	        headerRight: ({ navigation }) => <MenuButton navigation={navigation} />,
 	      }}
 	    >
-	      <Stack.Screen name="Panel" component={PanelScreen} options={{ title: 'TecnicFit - Panel' }} />
-	      <Stack.Screen name="TaskBuilder" component={TaskBuilderScreen} options={{ title: 'TecnicFit - Generar Tarea' }} />
-	      <Stack.Screen name="Checkout" component={CheckoutScreen} options={{ title: 'TecnicFit - Confirmar Plan' }} />
-
-
-	      <Stack.Screen name="History" component={HistoryScreen} options={{ title: 'TecnicFit - Historial' }} />
+	      <Stack.Screen name="Panel" component={PanelScreen} options={{ title: 'TecnicFit - Panel', headerShown: true }} />
+	      <Stack.Screen name="TaskBuilder" component={TaskBuilderScreen} options={{ title: 'TecnicFit - Generar Tarea', headerShown: true }} />
+	      <Stack.Screen name="Checkout" component={CheckoutScreen} options={{ title: 'TecnicFit - Confirmar Plan', headerShown: true }} />
+	      <Stack.Screen name="Results" component={ResultsScreen} options={{ title: 'TecnicFit - Resultados', headerShown: true }} />
+	      <Stack.Screen name="Plans" component={PlansScreen} options={{ title: 'TecnicFit - Planes', headerShown: true }} />
+	      <Stack.Screen name="History" component={HistoryScreen} options={{ title: 'TecnicFit - Historial', headerShown: true }} />
 	    </Stack.Navigator>
 	  );
 	}
