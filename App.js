@@ -46,9 +46,11 @@ import CheckoutScreen from './screens/CheckoutScreen';
 
 import ProfileScreen from './screens/ProfileScreen';
 
+import PlansModal from './components/PlansModal';
+
 
 import MenuButton from './components/MenuButton';
-import ThreeDotsMenu from './components/ThreeDotsMenu';
+import NavigationMenu from './components/NavigationMenu';
 
 
 const Stack = createNativeStackNavigator();
@@ -76,15 +78,15 @@ function AuthStack() {
 	        headerStyle: { backgroundColor: '#2563EB' },
 	        headerTintColor: '#fff',
 	        headerTitleStyle: { fontWeight: '800' },
-	        headerRight: () => <ThreeDotsMenu />,
+	        headerRight: () => <NavigationMenu showProfile={false} />,
 	      }}
 	    >
 	      <Stack.Screen name="Panel" component={PanelScreen} options={{ title: 'TecnicFit - Panel', headerShown: true }} />
-	      <Stack.Screen name="TaskBuilder" component={TaskBuilderScreen} options={{ title: 'TecnicFit - Generar Tarea', headerShown: true }} />
+	      <Stack.Screen name="TaskBuilder" component={TaskBuilderScreen} options={{ title: 'TecnicFit - Generar Tarea', headerShown: true, headerRight: () => <NavigationMenu showProfile={false} /> }} />
 	      <Stack.Screen name="Checkout" component={CheckoutScreen} options={{ title: 'TecnicFit - Confirmar Plan', headerShown: true }} />
-	      <Stack.Screen name="Results" component={ResultsScreen} options={{ title: 'TecnicFit - Resultados', headerShown: true }} />
-	      <Stack.Screen name="Plans" component={PlansScreen} options={{ title: 'TecnicFit - Planes', headerShown: true }} />
-	      <Stack.Screen name="History" component={HistoryScreen} options={{ title: 'TecnicFit - Historial', headerShown: true }} />
+	      <Stack.Screen name="Results" component={ResultsScreen} options={{ title: 'TecnicFit - Resultados', headerShown: true, headerRight: () => <NavigationMenu showProfile={true} /> }} />
+	      <Stack.Screen name="Plans" component={PlansScreen} options={{ title: 'TecnicFit - Planes', headerShown: true, headerRight: () => <NavigationMenu showProfile={false} /> }} />
+	      <Stack.Screen name="History" component={HistoryScreen} options={{ title: 'TecnicFit - Historial', headerShown: true, headerRight: () => <NavigationMenu showProfile={false} /> }} />
 	      <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'TecnicFit - Mi Perfil', headerShown: false }} />
 	    </Stack.Navigator>
 	  );

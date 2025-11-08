@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../store/AuthStore';
 import { usePlan } from '../store/PlanStore';
+import SearchBar from '../components/SearchBar';
 
 // Componente de tarjeta de navegación
 const NavCard = ({ icon, title, subtitle, onPress }) => (
@@ -18,19 +19,25 @@ const NavCard = ({ icon, title, subtitle, onPress }) => (
 
 export default function PanelScreen() {
   const navigation = useNavigation();
-  const { user, limits, usedToday, signOut } = useAuth();
-  const { currentPlan } = usePlan(); // Asumiendo que usePlan expone currentPlan
+  const { user, limits, usedToday } = useAuth();
+  const { currentPlan } = usePlan();
+  const [searchResults, setSearchResults] = useState(null);
 
   const userName = user?.name || user?.email?.split('@')[0] || 'Usuario';
   const currentLimit = limits?.maxTasksPerDay || 3;
   const tasksRemaining = currentLimit - (usedToday || 0);
+
+  const handleSearch = (results) => {
+    setSearchResults(results);
+    navigation.navigate('Results', { query: results.query, results });
+  };
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       {/* Sección de Bienvenida y Cuota */}
       <View style={styles.header}>
         <Text style={styles.hi}>Hola, {userName}</Text>
-        <Text style={styles.planText}>Plan Actual: {currentPlan?.name || 'Gratuito'}</Text>
+        <Text style={styles.planText}>Plan Actual: {currentPlan?.toUpperCase() || 'GRATUITO'}</Text>
       </View>
 
       {/* Tarjeta de Cuota */}
@@ -40,15 +47,14 @@ export default function PanelScreen() {
         <Text style={styles.quotaSubtext}>
           {tasksRemaining > 0 
             ? `Tienes ${tasksRemaining} tareas IA disponibles.`
-            : 'Has alcanzado tu límite diario. Considera un plan Pro.'
+            : 'Has alcanzado tu límite diario.'
           }
         </Text>
-        <TouchableOpacity 
-          style={styles.upgradeButton} 
-          onPress={() => navigation.navigate('Plans')}
-        >
-          <Text style={styles.upgradeButtonText}>Ver Planes Pro</Text>
-        </TouchableOpacity>
+      </View>
+
+      {/* Barra de Búsqueda */}
+      <View style={styles.searchSection}>
+        <SearchBar onSearch={handleSearch} />
       </View>
 
       {/* Acciones Principales */}
@@ -59,36 +65,16 @@ export default function PanelScreen() {
         subtitle="Crea una guía de reparación paso a paso al instante." 
         onPress={() => navigation.navigate('TaskBuilder')} 
       />
-      <NavCard 
-        icon="📚" 
-        title="Historial de Tareas" 
-        subtitle="Revisa y reutiliza tus guías de reparación anteriores." 
-        onPress={() => navigation.navigate('History')} 
-      />
-      <NavCard 
-        icon="⭐" 
-        title="Mis Planes" 
-        subtitle="Gestiona tu suscripción y beneficios Pro." 
-        onPress={() => navigation.navigate('Plans')} 
-      />
-      
-      {/* Sección de Cuenta */}
-      <Text style={styles.sectionTitle}>Configuración de Cuenta</Text>
-      <NavCard 
-        icon="👤" 
-        title="Mi Perfil" 
-        subtitle="Actualiza tu información personal y preferencias." 
-        onPress={() => { /* navigation.navigate('Profile') */ }} 
-      />
-      <NavCard 
-        icon="🚪" 
-        title="Cerrar Sesión" 
-        subtitle="Finaliza tu sesión actual." 
-        onPress={async () => {
-          await signOut();
-          navigation.reset({ index: 0, routes: [{ name: 'Landing' }] });
-        }} 
-      />
+
+      {/* Historial solo para PRO y COLAB */}
+      {(currentPlan === 'pro' || currentPlan === 'colab') && (
+        <NavCard 
+          icon="📚" 
+          title="Historial de Tareas" 
+          subtitle="Revisa y reutiliza tus guías de reparación anteriores." 
+          onPress={() => navigation.navigate('History')} 
+        />
+      )}
 
     </ScrollView>
   );
@@ -120,7 +106,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 16,
     padding: 20,
-    marginBottom: 30,
+    marginBottom: 20,
     borderWidth: 1,
     borderColor: '#E2E8F0',
     shadowColor: '#000',
@@ -144,18 +130,10 @@ const styles = StyleSheet.create({
   quotaSubtext: {
     fontSize: 14,
     color: '#64748B',
-    marginBottom: 15,
+    marginBottom: 0,
   },
-  upgradeButton: {
-    backgroundColor: '#FBBF24', // Amarillo para destacar
-    paddingVertical: 12,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  upgradeButtonText: {
-    color: '#0F172A',
-    fontWeight: '800',
-    fontSize: 16,
+  searchSection: {
+    marginBottom: 24,
   },
   sectionTitle: {
     fontSize: 20,

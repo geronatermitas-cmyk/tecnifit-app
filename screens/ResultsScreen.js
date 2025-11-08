@@ -3,6 +3,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import NavigationMenu from '../components/NavigationMenu';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -42,6 +43,9 @@ export default function ResultsScreen() {
   const route = useRoute();
   const { query, results } = route.params;
 
+  // Este componente será usado con headerRight en App.js
+  ResultsScreen.headerRight = () => <NavigationMenu showProfile={true} />;
+
   return (
     <View style={styles.container}>
       <Text style={styles.headerTitle}>Resultados de Búsqueda</Text>
@@ -71,24 +75,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingHorizontal: 16,
+    paddingTop: 16,
   },
   headerTitle: {
     fontSize: 24,
     fontWeight: '900',
     color: '#0F172A',
-    marginTop: 20,
+    marginTop: 0,
   },
   headerSubtitle: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#64748B',
     marginBottom: 20,
   },
   queryText: {
     fontWeight: '700',
     color: '#2563EB',
+    fontSize: 14,
   },
   listContent: {
     paddingBottom: 20,
+    paddingTop: 10,
   },
   itemContainer: {
     flexDirection: 'row',
@@ -101,10 +108,15 @@ const styles = StyleSheet.create({
     maxWidth: 800,
     alignSelf: 'center',
     width: '100%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
   },
   itemImage: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     minHeight: '100%',
     resizeMode: 'cover',
   },
@@ -114,13 +126,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   itemTitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
     color: '#0F172A',
     marginBottom: 4,
   },
   itemDescription: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#64748B',
     marginBottom: 8,
   },
@@ -145,35 +157,37 @@ const styles = StyleSheet.create({
   iaStepsContainer: {
     marginTop: 8,
     marginBottom: 8,
-    padding: 10,
-    backgroundColor: '#EBF8FF', // Fondo azul claro para destacar
+    padding: 8,
+    backgroundColor: '#EBF8FF',
     borderRadius: 8,
   },
   iaStepsTitle: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '700',
     color: '#0F172A',
     marginBottom: 4,
   },
   iaStepText: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#334155',
-    lineHeight: 18,
+    lineHeight: 16,
   },
   noResultsContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 50,
+    paddingTop: 100,
   },
   noResultsText: {
     fontSize: 18,
     fontWeight: '700',
     color: '#0F172A',
     marginBottom: 8,
+    textAlign: 'center',
   },
   noResultsTip: {
     fontSize: 14,
     color: '#64748B',
+    textAlign: 'center',
   },
 });
