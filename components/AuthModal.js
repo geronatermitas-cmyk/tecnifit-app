@@ -22,7 +22,7 @@ export default function AuthModal({ visible, onClose }) {
         password: 'google-oauth-token'
       });
       onClose();
-      navigation.reset({ index: 0, routes: [{ name: 'Panel' }] });
+	      navigation.navigate('Panel');
     } catch (error) {
       console.error('Error al iniciar sesión con Google:', error);
       // Podríamos mostrar un Toast o un mensaje de error aquí si fuera necesario
@@ -41,7 +41,7 @@ export default function AuthModal({ visible, onClose }) {
         password: 'apple-oauth-token'
       });
       onClose();
-      navigation.reset({ index: 0, routes: [{ name: 'Panel' }] });
+	      navigation.navigate('Panel');
     } catch (error) {
       console.error('Error al iniciar sesión con Apple:', error);
       // Podríamos mostrar un Toast o un mensaje de error aquí si fuera necesario
@@ -69,17 +69,28 @@ export default function AuthModal({ visible, onClose }) {
           <Text style={styles.title}>Acceso a TecnicFit Pro</Text>
           <Text style={styles.subtitle}>Inicia sesión o regístrate para acceder a todas las funcionalidades.</Text>
 
-          {/* Botón Email/Contraseña */}
-          <TouchableOpacity
-            style={[styles.button, styles.emailButton]}
-            onPress={() => {
-              onClose(); // Cerrar el modal
-              navigation.navigate('Login'); // Navegar a la pantalla de Login
-            }}
-          >
-            <Text style={styles.emailIcon}>📧</Text>
-            <Text style={[styles.buttonText, { color: '#fff' }]}>Continuar con Email</Text>
-          </TouchableOpacity>
+	          {/* Botón Crear Cuenta */}
+	          <TouchableOpacity
+	            style={[styles.button, styles.signupButton]}
+	            onPress={() => {
+	              onClose(); // Cerrar el modal
+	              navigation.navigate('Signup'); // Navegar a la pantalla de Signup
+	            }}
+	          >
+	            <Text style={[styles.buttonText, { color: '#2563EB' }]}>Crear Cuenta</Text>
+	          </TouchableOpacity>
+	
+	          {/* Botón Email/Contraseña */}
+	          <TouchableOpacity
+	            style={[styles.button, styles.emailButton]}
+	            onPress={() => {
+	              onClose(); // Cerrar el modal
+	              navigation.navigate('Login'); // Navegar a la pantalla de Login
+	            }}
+	          >
+	            <Text style={styles.emailIcon}>📧</Text>
+	            <Text style={[styles.buttonText, { color: '#fff' }]}>Iniciar Sesión con Email</Text>
+	          </TouchableOpacity>
 
           <View style={styles.divider}>
             <View style={styles.line} />
@@ -180,14 +191,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: '#E2E8F0',
   },
-  appleButton: {
-    backgroundColor: '#0F172A',
-    borderColor: '#0F172A',
-  },
-  emailButton: {
-    backgroundColor: '#2563EB',
-    borderColor: '#2563EB',
-  },
+	  appleButton: {
+	    backgroundColor: '#0F172A',
+	    borderColor: '#0F172A',
+	  },
+	  emailButton: {
+	    backgroundColor: '#2563EB',
+	    borderColor: '#2563EB',
+	  },
+	  signupButton: {
+	    backgroundColor: '#fff',
+	    borderColor: '#2563EB',
+	    borderWidth: 2,
+	  },
   emailIcon: {
     fontSize: 20,
     marginRight: 10,

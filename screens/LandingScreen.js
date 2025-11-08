@@ -90,9 +90,14 @@ export default function LandingScreen() {
               <Text style={styles.featureCardTitle}>Guías Paso a Paso</Text>
               <Text style={styles.featureCardText}>Tutoriales detallados y verificados.</Text>
             </View>
-          </View>
-
-        </View>
+	          </View>
+	
+	          {/* Botón simple de Planes Pro (CTA) */}
+	          <TouchableOpacity style={styles.proButton} onPress={() => nav.navigate('Plans')}>
+	            <Text style={styles.proButtonText}>⭐ Ver Planes Pro</Text>
+	          </TouchableOpacity>
+	
+	        </View>
 
       </ScrollView>
 
@@ -211,8 +216,23 @@ const styles = StyleSheet.create({
     color: '#0F172A',
     marginBottom: 4,
   },
-  featureCardText: {
-    fontSize: 12,
-    color: '#64748B',
-  },
-});
+	  featureCardText: {
+	    fontSize: 12,
+	    color: '#64748B',
+	  },
+	
+	  // Estilos para el botón simple de Planes Pro
+	  proButton: {
+	    backgroundColor: '#FBBF24',
+	    paddingVertical: 15,
+	    borderRadius: 10,
+	    marginTop: 20,
+	    marginBottom: 40,
+	    alignItems: 'center',
+	  },
+	  proButtonText: {
+	    fontSize: 18,
+	    fontWeight: '700',
+	    color: '#0F172A',
+	  },
+	});

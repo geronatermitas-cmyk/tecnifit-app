@@ -14,7 +14,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
-import { AuthProvider } from './store/AuthStore';
+import { AuthProvider, useAuth } from './store/AuthStore';
 import { UIProvider } from './store/UIContext';
 
 import { IntakeProvider } from './store/IntakeStore';
@@ -51,54 +51,56 @@ import MenuButton from './components/MenuButton';
 const Stack = createNativeStackNavigator();
 
 
-function RootNavigator() {
+function AuthStack() {
+	  return (
+	    <Stack.Navigator screenOptions={{ headerShown: false }}>
+	      <Stack.Screen name="Landing" component={LandingScreen} options={{ title: 'TecnicFit - Inicio' }} />
+	      <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'TecnicFit - Iniciar Sesión' }} />
+	      <Stack.Screen name="Signup" component={SignupScreen} options={{ title: 'TecnicFit - Crear Cuenta' }} />
+	      <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ title: 'TecnicFit - Recuperar' }} />
+	    </Stack.Navigator>
+	  );
+	}
+	
+	function AppStack() {
+	  return (
+	    <Stack.Navigator
+	      initialRouteName="Panel"
+	      screenOptions={{
+	        headerTitle: 'TecnicFit Pro',
+	        headerStyle: { backgroundColor: '#2563EB' },
+	        headerTintColor: '#fff',
+	        headerTitleStyle: { fontWeight: '800' },
+	        headerRight: ({ navigation }) => <MenuButton navigation={navigation} />,
+	      }}
+	    >
+	      <Stack.Screen name="Panel" component={PanelScreen} options={{ title: 'TecnicFit - Panel' }} />
+	      <Stack.Screen name="TaskBuilder" component={TaskBuilderScreen} options={{ title: 'TecnicFit - Generar Tarea' }} />
+	      <Stack.Screen name="Checkout" component={CheckoutScreen} options={{ title: 'TecnicFit - Confirmar Plan' }} />
+	      <Stack.Screen name="Results" component={ResultsScreen} options={{ title: 'TecnicFit - Resultados', headerRight: ({ navigation }) => <MenuButton navigation={navigation} /> }} />
+	      <Stack.Screen name="Plans" component={PlansScreen} options={{ title: 'TecnicFit - Planes' }} />
+	      <Stack.Screen name="History" component={HistoryScreen} options={{ title: 'TecnicFit - Historial' }} />
+	    </Stack.Navigator>
+	  );
+	}
+	
+	function RootNavigator() {
+	  const { user } = useAuth();
+	
+	  return (
+	    <Stack.Navigator screenOptions={{ headerShown: false }}>
+	      {user ? (
+	        <Stack.Screen name="AppStack" component={AppStack} />
+	      ) : (
+	        <Stack.Screen name="AuthStack" component={AuthStack} />
+	      )}
+	    </Stack.Navigator>
+	  );
+	}
 
 return (
 
-<Stack.Navigator
 
-screenOptions={{
-
-headerTitle: 'TecnicFit Pro',
-
-headerStyle: { backgroundColor: '#2563EB' },
-
-headerTintColor: '#fff',
-
-headerTitleStyle: { fontWeight: '800' },
-
-headerRight: ({ navigation }) => <MenuButton navigation={navigation} />, // ← tres puntos en TODAS
-
-}}
-
->
-
-<Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: true, title: 'TecnicFit IA' }} />
-
-<Stack.Screen name="Login" component={LoginScreen} />
-
-<Stack.Screen name="Signup" component={SignupScreen} />
-
-<Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ title: 'Recuperar' }} />
-
-
-{/* RUTAS CON SESIÓN */}
-
-<Stack.Screen name="Panel" component={PanelScreen} />
-
-<Stack.Screen name="TaskBuilder" component={TaskBuilderScreen} options={{ title: 'Generar tarea' }} />
-
-<Stack.Screen name="Checkout" component={CheckoutScreen} options={{ title: 'Confirmar plan' }} />
-
-{/* COMUNES */}
-
-<Stack.Screen name="Results" component={ResultsScreen} options={{ title: 'Resultados', headerRight: ({ navigation }) => <MenuButton navigation={navigation} /> }} />
-
-<Stack.Screen name="Plans" component={PlansScreen} options={{ title: 'Planes' }} />
-
-<Stack.Screen name="History" component={HistoryScreen} options={{ title: 'Historial' }} />
-
-</Stack.Navigator>
 
 );
 
