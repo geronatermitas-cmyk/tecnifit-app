@@ -69,28 +69,28 @@ export default function AuthModal({ visible, onClose }) {
           <Text style={styles.title}>Acceso a TecnicFit Pro</Text>
           <Text style={styles.subtitle}>Inicia sesión o regístrate para acceder a todas las funcionalidades.</Text>
 
-	          {/* Botón Crear Cuenta */}
-	          <TouchableOpacity
-	            style={[styles.button, styles.signupButton]}
-	            onPress={() => {
-	              onClose(); // Cerrar el modal
-	              navigation.navigate('Signup'); // Navegar a la pantalla de Signup
-	            }}
-	          >
-	            <Text style={[styles.buttonText, { color: '#2563EB' }]}>Crear Cuenta</Text>
-	          </TouchableOpacity>
-	
-	          {/* Botón Email/Contraseña */}
-	          <TouchableOpacity
-	            style={[styles.button, styles.emailButton]}
-	            onPress={() => {
-	              onClose(); // Cerrar el modal
-	              navigation.navigate('Login'); // Navegar a la pantalla de Login
-	            }}
-	          >
-	            <Text style={styles.emailIcon}>📧</Text>
-	            <Text style={[styles.buttonText, { color: '#fff' }]}>Iniciar Sesión con Email</Text>
-	          </TouchableOpacity>
+		          {/* Botón Email/Contraseña */}
+		          <TouchableOpacity
+		            style={[styles.button, styles.emailButton]}
+		            onPress={() => {
+		              onClose(); // Cerrar el modal
+		              navigation.navigate('Login'); // Navegar a la pantalla de Login
+		            }}
+		          >
+		            <Text style={styles.emailIcon}>📧</Text>
+		            <Text style={[styles.buttonText, { color: '#fff' }]}>Continuar con Email</Text>
+		          </TouchableOpacity>
+		
+		          {/* Botón Crear Cuenta */}
+		          <TouchableOpacity
+		            style={[styles.button, styles.signupButton]}
+		            onPress={() => {
+		              onClose(); // Cerrar el modal
+		              navigation.navigate('Signup'); // Navegar a la pantalla de Signup
+		            }}
+		          >
+		            <Text style={[styles.buttonText, { color: '#2563EB' }]}>Crear Cuenta</Text>
+		          </TouchableOpacity>
 
           <View style={styles.divider}>
             <View style={styles.line} />
@@ -199,11 +199,11 @@ const styles = StyleSheet.create({
 	    backgroundColor: '#2563EB',
 	    borderColor: '#2563EB',
 	  },
-	  signupButton: {
-	    backgroundColor: '#fff',
-	    borderColor: '#2563EB',
-	    borderWidth: 2,
-	  },
+		  signupButton: {
+		    backgroundColor: '#fff',
+		    borderColor: '#2563EB',
+		    borderWidth: 2,
+		  },
   emailIcon: {
     fontSize: 20,
     marginRight: 10,

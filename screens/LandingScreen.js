@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     marginTop: -40, // Superpone ligeramente con la imagen
-    // Efecto de vidrio esmerilado (Frosted Glass)
-    backdropFilter: 'blur(10px)',
+	    // Efecto de vidrio esmerilado (Frosted Glass)
+	    // backdropFilter: 'blur(10px)', // Eliminado para estabilidad
   },
   mainTitle: {
     fontSize: 32,
