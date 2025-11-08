@@ -15,8 +15,9 @@ export default function PlansScreen() {
 
   if (!user) return null;
 
-  const goCheckout = (planId) => {
-    nav.navigate('Checkout', { planId });
+  const handleSelectPlan = async (planId) => {
+    await selectPlan(planId);
+    nav.goBack();
   };
 
   return (
@@ -33,7 +34,7 @@ export default function PlansScreen() {
               <Text key={i} style={styles.li}>• {b}</Text>
             ))}
           </View>
-          <TouchableOpacity style={[styles.btn, currentPlan === p.id ? styles.btnGhost : styles.btnPrimary]} onPress={() => (currentPlan === p.id ? null : goCheckout(p.id))}>
+          <TouchableOpacity style={[styles.btn, currentPlan === p.id ? styles.btnGhost : styles.btnPrimary]} onPress={() => (currentPlan === p.id ? null : handleSelectPlan(p.id))}>
             <Text style={[styles.btnTxt, currentPlan === p.id && styles.btnGhostTxt]}>{currentPlan === p.id ? 'Plan actual' : 'Cambiar'}</Text>
           </TouchableOpacity>
         </View>

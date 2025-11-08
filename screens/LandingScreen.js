@@ -34,11 +34,16 @@ export default function LandingScreen() {
   };
 
 
-	  return (
-	    <View style={styles.container}>
-	      <View style={styles.menuButtonWrapper}>
-	        <MenuButton onPress={openAuthModal} />
-	      </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.loginButtonWrapper}>
+        <TouchableOpacity style={styles.loginButton} onPress={openAuthModal}>
+          <Image
+            source={require('../assets/images/login-icon.png')}
+            style={styles.loginIcon}
+          />
+        </TouchableOpacity>
+      </View>
       {/* Hero Image - Mockup Phone (Fija en el fondo) */}
       <View style={styles.heroContainer}>
         <Image
@@ -97,10 +102,7 @@ export default function LandingScreen() {
             </View>
 	          </View>
 	
-	          {/* Botón simple de Planes Pro (CTA) */}
-	          <TouchableOpacity style={styles.proButton} onPress={() => nav.navigate('Plans')}>
-	            <Text style={styles.proButtonText}>⭐ Ver Planes Pro</Text>
-	          </TouchableOpacity>
+
 	
 	        </View>
 
@@ -229,25 +231,31 @@ const styles = StyleSheet.create({
 	  },
 	
 	  // Estilos para el botón simple de Planes Pro
-	  proButton: {
-	    backgroundColor: '#FBBF24',
-	    paddingVertical: 15,
-	    borderRadius: 10,
-	    marginTop: 20,
-	    marginBottom: 40,
-	    alignItems: 'center',
-	  },
-	  proButtonText: {
-	    fontSize: 18,
-	    fontWeight: '700',
-	    color: '#0F172A',
-	  },
-	  menuButtonWrapper: {
-	    position: 'absolute',
-	    top: 40, // Ajustar según la SafeArea
-	    right: 20,
-	    zIndex: 10,
-	  },
+
+  loginButtonWrapper: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    zIndex: 10,
+  },
+  loginButton: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#2563EB',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+    elevation: 5,
+  },
+  loginIcon: {
+    width: 40,
+    height: 40,
+    resizeMode: 'contain',
+  },
 	  searchBarWrapper: {
 	    position: 'absolute',
 	    bottom: 0,

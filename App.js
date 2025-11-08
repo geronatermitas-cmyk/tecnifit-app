@@ -46,6 +46,7 @@ import CheckoutScreen from './screens/CheckoutScreen';
 
 
 import MenuButton from './components/MenuButton';
+import ThreeDotsMenu from './components/ThreeDotsMenu';
 
 
 const Stack = createNativeStackNavigator();
@@ -73,7 +74,7 @@ function AuthStack() {
 	        headerStyle: { backgroundColor: '#2563EB' },
 	        headerTintColor: '#fff',
 	        headerTitleStyle: { fontWeight: '800' },
-	        headerRight: ({ navigation }) => <MenuButton navigation={navigation} />,
+	        headerRight: () => <ThreeDotsMenu />,
 	      }}
 	    >
 	      <Stack.Screen name="Panel" component={PanelScreen} options={{ title: 'TecnicFit - Panel', headerShown: true }} />
