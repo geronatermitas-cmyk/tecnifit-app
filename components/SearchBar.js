@@ -83,29 +83,7 @@ export default function SearchBar({ placeholder = "Buscar tareas, tutoriales..."
         </TouchableOpacity>
       </View>
 
-      {/* Sugerencias */}
-      <View style={styles.suggestionsContainer}>
-        <TouchableOpacity onPress={() => { setQuery('Reparación'); }}>
-          <View style={styles.suggestionTag}>
-            <Text style={{ fontSize: 14, color: '#2563EB', marginRight: 4 }}>🔨</Text>
-            <Text style={styles.suggestionText}>Reparación</Text>
-          </View>
-        </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => { setQuery('Montaje'); }}>
-          <View style={styles.suggestionTag}>
-            <Text style={{ fontSize: 14, color: '#2563EB', marginRight: 4 }}>🛠️</Text>
-            <Text style={styles.suggestionText}>Montaje</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => { setQuery('Tutorial'); }}>
-          <View style={styles.suggestionTag}>
-            <Text style={{ fontSize: 14, color: '#2563EB', marginRight: 4 }}>📖</Text>
-            <Text style={styles.suggestionText}>Tutorial</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 }
@@ -160,30 +138,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  suggestionsContainer: {
-    flexDirection: 'row',
-    marginTop: 12,
-    gap: 8,
-    // Limitar ancho para que coincida con searchBox
-    width: '100%',
-    maxWidth: 600,
-  },
-  suggestionTag: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#EFF6FF',
-    borderRadius: 16,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderWidth: 1,
-    borderColor: '#BFDBFE',
-    gap: 6,
-  },
-  suggestionText: {
-    fontSize: 12,
-    color: '#2563EB',
-    fontWeight: '600',
-  },
+
   decoration: {
     position: 'absolute',
     top: 10, // Ajuste de posición
