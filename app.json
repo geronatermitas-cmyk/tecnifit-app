@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "440bde3b-10d3-4379-9734-14eaf24cc31d"
+      }
+    },
+    "android": {
+      "package": "com.tecnicfit.ia"
+    }
+  }
+}
