@@ -1,0 +1,16 @@
+node_modules
+.git
+.expo
+.gitignore
+*.md
+src
+screens
+components
+store
+assets
+utils
+mock_data.js
+App.js
+package.json
+package-lock.json
+app.json
