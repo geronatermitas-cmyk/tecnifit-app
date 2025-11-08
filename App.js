@@ -54,10 +54,12 @@ const Stack = createNativeStackNavigator();
 function AuthStack() {
 	  return (
 	    <Stack.Navigator screenOptions={{ headerShown: false }}>
-	      <Stack.Screen name="Landing" component={LandingScreen} options={{ title: 'TecnicFit - Inicio' }} />
+	      <Stack.Screen name="Landing" component={LandingScreen} options={{ title: 'TecnicFit - Inicio', headerShown: false }} />
 	      <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'TecnicFit - Iniciar Sesión' }} />
 	      <Stack.Screen name="Signup" component={SignupScreen} options={{ title: 'TecnicFit - Crear Cuenta' }} />
 	      <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ title: 'TecnicFit - Recuperar' }} />
+	      <Stack.Screen name="Plans" component={PlansScreen} options={{ title: 'TecnicFit - Planes' }} />
+	      <Stack.Screen name="Results" component={ResultsScreen} options={{ title: 'TecnicFit - Resultados' }} />
 	    </Stack.Navigator>
 	  );
 	}
@@ -77,8 +79,8 @@ function AuthStack() {
 	      <Stack.Screen name="Panel" component={PanelScreen} options={{ title: 'TecnicFit - Panel' }} />
 	      <Stack.Screen name="TaskBuilder" component={TaskBuilderScreen} options={{ title: 'TecnicFit - Generar Tarea' }} />
 	      <Stack.Screen name="Checkout" component={CheckoutScreen} options={{ title: 'TecnicFit - Confirmar Plan' }} />
-	      <Stack.Screen name="Results" component={ResultsScreen} options={{ title: 'TecnicFit - Resultados', headerRight: ({ navigation }) => <MenuButton navigation={navigation} /> }} />
-	      <Stack.Screen name="Plans" component={PlansScreen} options={{ title: 'TecnicFit - Planes' }} />
+
+
 	      <Stack.Screen name="History" component={HistoryScreen} options={{ title: 'TecnicFit - Historial' }} />
 	    </Stack.Navigator>
 	  );

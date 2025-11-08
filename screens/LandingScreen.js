@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet, Dimensions, Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useUI } from '../store/UIContext';
+import MenuButton from '../components/MenuButton';
 import AuthModal from '../components/AuthModal';
 import SearchBar from '../components/SearchBar';
 
@@ -16,6 +17,7 @@ const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 export default function LandingScreen() {
 
   const nav = useNavigation();
+  const { openAuthModal } = useUI();
   const route = useRoute();
   const { authModalVisible, closeAuthModal } = useUI();
   const [searchResults, setSearchResults] = useState(null);
@@ -32,8 +34,11 @@ export default function LandingScreen() {
   };
 
 
-  return (
-    <View style={styles.container}>
+	  return (
+	    <View style={styles.container}>
+	      <View style={styles.menuButtonWrapper}>
+	        <MenuButton onPress={openAuthModal} />
+	      </View>
       {/* Hero Image - Mockup Phone (Fija en el fondo) */}
       <View style={styles.heroContainer}>
         <Image
@@ -43,7 +48,7 @@ export default function LandingScreen() {
         />
       </View>
 
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+	      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
 
         {/* Contenido debajo de la imagen */}
         <View style={styles.contentContainer}>
@@ -99,17 +104,19 @@ export default function LandingScreen() {
 	
 	        </View>
 
-      </ScrollView>
-
-      {/* SearchBar en la parte inferior */}
-      <SearchBar onSearch={handleSearch} />
-
-      {/* Modal de autenticación */}
-      <AuthModal
-        visible={authModalVisible}
-        onClose={closeAuthModal}
-      />
-    </View>
+	      </ScrollView>
+	
+	      {/* SearchBar en la parte inferior */}
+	      <View style={styles.searchBarWrapper}>
+	        <SearchBar onSearch={handleSearch} />
+	      </View>
+	
+	      {/* Modal de autenticación */}
+	      <AuthModal
+	        visible={authModalVisible}
+	        onClose={closeAuthModal}
+	      />
+	    </View>
   );
 }
 
@@ -127,10 +134,10 @@ const styles = StyleSheet.create({
     width: screenWidth,
     height: screenHeight,
   },
-  scrollContent: {
-    paddingTop: screenHeight, // Empuja el contenido hacia abajo
-    paddingBottom: 40,
-  },
+	  scrollContent: {
+	    paddingTop: screenHeight, // Empuja el contenido hacia abajo
+	    paddingBottom: 40,
+	  },
   heroContainer: {
     width: screenWidth,
     height: screenHeight,
@@ -234,5 +241,20 @@ const styles = StyleSheet.create({
 	    fontSize: 18,
 	    fontWeight: '700',
 	    color: '#0F172A',
+	  },
+	  menuButtonWrapper: {
+	    position: 'absolute',
+	    top: 40, // Ajustar según la SafeArea
+	    right: 20,
+	    zIndex: 10,
+	  },
+	  searchBarWrapper: {
+	    position: 'absolute',
+	    bottom: 0,
+	    left: 0,
+	    right: 0,
+	    zIndex: 10,
+	    paddingHorizontal: 20,
+	    paddingBottom: 20,
 	  },
 	});
