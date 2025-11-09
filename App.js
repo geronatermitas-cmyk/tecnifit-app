@@ -76,22 +76,28 @@ function RootNavigator() {
   );
 }
 
-export default function App() {
+function AppContent() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <AuthProvider>
-          <PlanProvider>
-            <IntakeProvider>
-              <NavigationContainer>
-                <UIProvider>
-                  <RootNavigator />
-                </UIProvider>
-              </NavigationContainer>
-            </IntakeProvider>
-          </PlanProvider>
-        </AuthProvider>
+        <PlanProvider>
+          <IntakeProvider>
+            <NavigationContainer>
+              <UIProvider>
+                <RootNavigator />
+              </UIProvider>
+            </NavigationContainer>
+          </IntakeProvider>
+        </PlanProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
