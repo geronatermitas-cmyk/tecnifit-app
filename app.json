@@ -1,23 +1,33 @@
 {
   "expo": {
-    "extra": {
-      "eas": {
-        "projectId": "440bde3b-10d3-4379-9734-14eaf24cc31d"
-      }
+    "name": "app-movil-clean",
+    "slug": "app-movil-clean",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/adt-icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/adt-splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#000000"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adt-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "kotlinVersion": "2.0.0",
-            "enableBundleCompression": false
-          }
-        }
-      ]
-    ],
-    "android": {
-      "package": "com.tecnicfit.ia"
-    }
+      "expo-font",
+      "expo-secure-store"
+    ]
   }
 }

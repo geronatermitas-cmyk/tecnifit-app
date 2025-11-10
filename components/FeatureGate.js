@@ -1,100 +1,56 @@
+// components/FeatureGate.js
 // @ts-nocheck
-
 import React from 'react';
-
 import { View, Text, TouchableOpacity } from 'react-native';
-
 import { useAuth } from '../store/AuthStore';
 
-import { usePlan } from '../store/PlanStore';
+/**
+ * Muestra `children` solo si el usuario puede crear tareas (según su rol/limits).
+ * Si no puede, enseña un bloque informativo y, opcionalmente, un botón “Ver opciones”.
+ *
+ * Props:
+ * - needCreate: boolean -> si true, exige permiso de creación antes de renderizar children.
+ * - onLocked: () => void -> callback al pulsar “Ver opciones” (p. ej., navegar a Upgrade/Planes).
+ */
+export default function FeatureGate({ children, needCreate = false, onLocked = null }) {
+  // Hacemos la lectura de auth a prueba de null/undefined
+  const auth = (typeof useAuth === 'function') ? useAuth() : null;
 
-
-export default function FeatureGate({ children, needCreate = false, onLocked = null, message }) {
-
-  let auth = null;
-
-  try { auth = useAuth(); } catch {}
-
-  let plan = null;
-
-  try { plan = usePlan(); } catch {}
-
-
-  const user = auth?.user ?? null;
+  // Permisos y límites con fallback seguros
+  const canCreateTask =
+    (auth && typeof auth.canCreateTask === 'boolean') ? auth.canCreateTask : true;
 
   const limits = auth?.limits ?? { maxTasksPerDay: 3 };
 
-  const usedToday = auth?.usedToday ?? 0;
-
-
-  const isFree = plan?.isFree ?? true;
-
-  const isPro = plan?.isPro ?? false;
-
-  const isColab = plan?.isColab ?? false;
-
-
-  let blockedReason = null;
-
-  if (needCreate) {
-
-    if (!user) blockedReason = 'Necesitas iniciar sesión para continuar.';
-
-    else if (isFree && !isPro && !isColab) blockedReason = 'El plan FREE no permite crear tareas.';
-
-    else if (usedToday >= (limits?.maxTasksPerDay ?? 0)) blockedReason = `Has alcanzado el máximo diario (${limits?.maxTasksPerDay ?? 0}).`;
-
-  }
-
-
-  if (blockedReason) {
-
+  // Si se requiere permiso de creación y no está permitido, mostramos aviso
+  if (needCreate && !canCreateTask) {
     return (
-
       <View
-
         style={{
-
-          padding: 12,
-
+          padding: 14,
           borderRadius: 12,
-
           backgroundColor: '#FFF1F2',
-
           borderWidth: 1,
-
           borderColor: '#FCA5A5',
-
         }}
-
       >
-
-        <Text style={{ color: '#B91C1C', fontWeight: '800', marginBottom: 6 }}>
-
-          {message || 'Acción no disponible'}
-
+        <Text style={{ color: '#B91C1C', fontWeight: '700', marginBottom: 6 }}>
+          Límite alcanzado / Rol sin permisos
         </Text>
 
-        <Text style={{ color: '#7f1d1d' }}>{blockedReason}</Text>
-
+        <Text style={{ color: '#7f1d1d' }}>
+          Tu rol actual no puede crear más tareas hoy (máx. {limits?.maxTasksPerDay ?? 0}). Sube de plan para continuar.
+        </Text>
 
         {onLocked ? (
-
           <TouchableOpacity onPress={onLocked} style={{ marginTop: 10 }}>
-
-            <Text style={{ color: '#2563EB', fontWeight: '800' }}>Ver opciones</Text>
-
+            <Text style={{ color: '#2563EB', fontWeight: '700' }}>Ver opciones</Text>
           </TouchableOpacity>
-
         ) : null}
-
       </View>
-
     );
-
   }
 
-
+  // Si no hay restricción, render normal
   return <>{children}</>;
-
 }

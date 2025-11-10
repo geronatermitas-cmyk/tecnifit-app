@@ -1,268 +1,109 @@
+// screens/LandingScreen.js
 // @ts-nocheck
-
-import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet, Dimensions, Alert } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { useUI } from '../store/UIContext';
-import MenuButton from '../components/MenuButton';
-import AuthModal from '../components/AuthModal';
-import SearchBar from '../components/SearchBar';
-
-
-
-
-const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
-
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  TextInput,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LandingScreen() {
+  const navigation = useNavigation();
+  const [q, setQ] = useState('');
 
-  const nav = useNavigation();
-  const { openAuthModal } = useUI();
-  const route = useRoute();
-  const { authModalVisible, closeAuthModal } = useUI();
-  const [searchResults, setSearchResults] = useState(null);
-
-
-
-
-
-
-
-  const handleSearch = (results) => {
-    setSearchResults(results);
-    console.log(`Resultados de búsqueda: Se encontraron ${results.database.length + results.internet.length} resultados para "${results.query}"`);
+  const onSearch = () => {
+    navigation.navigate('Results', { q: q?.trim() || '' });
   };
 
-
   return (
-    <View style={styles.container}>
-      <View style={styles.loginButtonWrapper}>
-        <TouchableOpacity style={styles.loginButton} onPress={openAuthModal}>
-          <Image
-            source={require('../assets/images/login-icon.png')}
-            style={styles.loginIcon}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <ImageBackground
+        source={require('../assets/landing.png')}
+        resizeMode="cover"
+        style={styles.bg}
+      >
+        {/* Capa semitransparente opcional para contraste */}
+        <View style={styles.overlay} />
+
+        {/* Caja de búsqueda */}
+        <View style={styles.searchBoxWrap}>
+          <Text style={styles.title}>ASISTENTE DIGITAL DE TAREAS</Text>
+          <Text style={styles.subtitle}>GUÍA. APRENDE. HAZ.</Text>
+
+          <TextInput
+            value={q}
+            onChangeText={setQ}
+            placeholder="Describe tu tarea..."
+            placeholderTextColor="#94A3B8"
+            style={styles.input}
+            returnKeyType="search"
+            onSubmitEditing={onSearch}
           />
-        </TouchableOpacity>
-      </View>
-      {/* Hero Image - Mockup Phone (Fija en el fondo) */}
-      <View style={styles.heroContainer}>
-        <Image
-          source={require('../assets/images/mockup-phone.png')}
-          style={styles.heroImage}
-          resizeMode="cover"
-        />
-      </View>
 
-	      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-
-        {/* Contenido debajo de la imagen */}
-        <View style={styles.contentContainer}>
-
-          {/* Líneas de Énfasis (Decoración Superior) */}
-          <View style={styles.titleDecorationContainer}>
-            <View style={styles.titleLine} />
-            <View style={styles.titleLine} />
-          </View>
-
-          {/* Título principal */}
-          <Text style={styles.mainTitle}>TecnicFit Pro</Text>
-
-          {/* Descripción */}
-          <Text style={styles.description}>
-            Genera tareas inteligentes usando IA. Describe, fotografía o escanea códigos QR para obtener guías paso a paso.
-          </Text>
-
-
-
-          {/* Características - Rediseño a cuadrícula */}
-          <Text style={styles.featuresTitle}>¿Por qué TecnicFit?</Text>
-          <View style={styles.featuresGrid}>
-            <View style={styles.featureCard}>
-              <Text style={styles.featureIcon}>🤖</Text>
-              <Text style={styles.featureCardTitle}>IA Inteligente</Text>
-              <Text style={styles.featureCardText}>Identifica piezas y genera guías.</Text>
-            </View>
-
-            <View style={styles.featureCard}>
-              <Text style={styles.featureIcon}>📸</Text>
-              <Text style={styles.featureCardTitle}>Reconocimiento Visual</Text>
-              <Text style={styles.featureCardText}>Sube una foto y obtén la solución.</Text>
-            </View>
-
-            <View style={styles.featureCard}>
-              <Text style={styles.featureIcon}>📱</Text>
-              <Text style={styles.featureCardTitle}>Escaneo QR</Text>
-              <Text style={styles.featureCardText}>Acceso instantáneo a manuales.</Text>
-            </View>
-
-            <View style={styles.featureCard}>
-              <Text style={styles.featureIcon}>📚</Text>
-              <Text style={styles.featureCardTitle}>Guías Paso a Paso</Text>
-              <Text style={styles.featureCardText}>Tutoriales detallados y verificados.</Text>
-            </View>
-	          </View>
-	
-
-	
-	        </View>
-
-	      </ScrollView>
-	
-	      {/* SearchBar en la parte inferior */}
-	      <View style={styles.searchBarWrapper}>
-	        <SearchBar onSearch={handleSearch} />
-	      </View>
-	
-	      {/* Modal de autenticación */}
-	      <AuthModal
-	        visible={authModalVisible}
-	        onClose={closeAuthModal}
-	      />
-	    </View>
+          <TouchableOpacity onPress={onSearch} style={styles.btn}>
+            <Text style={styles.btnText}>Buscar</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+    </KeyboardAvoidingView>
   );
 }
 
-
 const styles = StyleSheet.create({
-  container: {
+  bg: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  // Contenedor de la imagen fuera del ScrollView
-  imageWrapper: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: screenWidth,
-    height: screenHeight,
-  },
-	  scrollContent: {
-	    paddingTop: screenHeight, // Empuja el contenido hacia abajo
-	    paddingBottom: 40,
-	  },
-  heroContainer: {
-    width: screenWidth,
-    height: screenHeight,
-    overflow: 'hidden',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Fondo blanco semitransparente para legibilidad
-    position: 'absolute', // Fija la imagen en el fondo
-    top: 0,
-    left: 0,
-  },
-  heroImage: {
     width: '100%',
     height: '100%',
-  },
-  contentContainer: {
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    backgroundColor: 'rgba(255, 255, 255, 0.5)', // Fondo semitransparente para el efecto cristal
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    marginTop: -40, // Superpone ligeramente con la imagen
-	    // Efecto de vidrio esmerilado (Frosted Glass)
-	    // backdropFilter: 'blur(10px)', // Eliminado para estabilidad
-  },
-  mainTitle: {
-    fontSize: 32,
-    fontWeight: '900',
-    color: '#0F172A',
-    marginBottom: 12,
-    textAlign: 'center',
-  },
-  description: {
-    fontSize: 14,
-    color: '#334155',
-    lineHeight: 22,
-    marginBottom: 24,
-    textAlign: 'center',
-  },
-
-  featuresTitle: {
-    fontSize: 22,
-    fontWeight: '900',
-    color: '#0F172A',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  titleDecorationContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingHorizontal: 20,
-    marginBottom: 12,
-  },
-  titleLine: {
-    width: '30%',
-    height: 2,
-    backgroundColor: '#2563EB',
-    opacity: 0.5,
-    borderRadius: 1,
-  },
-  featuresGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  featureCard: {
-    width: '48%', // Dos tarjetas por fila
-    backgroundColor: 'transparent', // Fondo transparente para que el efecto cristal del contentContainer se aplique a la tarjeta
-    borderRadius: 16,
-    padding: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-  },
-  featureIcon: {
-    fontSize: 48, // Aumentado de 32 a 48
-    marginBottom: 8,
-    color: '#2563EB', // Color azul para destacar
-  },
-  featureCardTitle: {
-    fontSize: 16,
-    fontWeight: '800',
-    color: '#0F172A',
-    marginBottom: 4,
-  },
-	  featureCardText: {
-	    fontSize: 12,
-	    color: '#64748B',
-	  },
-	
-	  // Estilos para el botón simple de Planes Pro
-
-  loginButtonWrapper: {
-    position: 'absolute',
-    top: 20,
-    right: 20,
-    zIndex: 10,
-  },
-  loginButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#2563EB',
-    justifyContent: 'center',
+    justifyContent: 'flex-end', // para que la caja quede abajo
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 5,
   },
-  loginIcon: {
-    width: 40,
-    height: 40,
-    resizeMode: 'contain',
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.25)', // si quieres oscurecer un poco la imagen
   },
-	  searchBarWrapper: {
-	    position: 'absolute',
-	    bottom: 0,
-	    left: 0,
-	    right: 0,
-	    zIndex: 10,
-	    paddingHorizontal: 20,
-	    paddingBottom: 20,
-	  },
-	});
+  searchBoxWrap: {
+    width: '90%',
+    maxWidth: 560,
+    backgroundColor: 'rgba(255,255,255,0.92)',
+    borderRadius: 18,
+    padding: 16,
+    marginBottom: 40,
+  },
+  title: {
+    color: '#1E3A8A',
+    fontSize: 18,
+    fontWeight: '900',
+    textAlign: 'center',
+  },
+  subtitle: {
+    color: '#1E40AF',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  input: {
+    backgroundColor: '#fff',
+    borderColor: '#E2E8F0',
+    borderWidth: 1,
+    borderRadius: 14,
+    paddingHorizontal: 14,
+    paddingVertical: 14,
+    fontSize: 16,
+    marginBottom: 12,
+  },
+  btn: {
+    backgroundColor: '#2563EB',
+    paddingVertical: 14,
+    borderRadius: 14,
+    alignItems: 'center',
+  },
+  btnText: { color: '#fff', fontWeight: '800', fontSize: 18 },
+});

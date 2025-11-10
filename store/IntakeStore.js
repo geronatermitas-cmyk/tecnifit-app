@@ -1,106 +1,30 @@
 // @ts-nocheck
-
 import React, { createContext, useContext, useMemo, useState } from 'react';
-
 import 'react-native-get-random-values';
-
 import { v4 as uuid } from 'uuid';
-
 
 const Ctx = createContext(null);
 
-
 export function IntakeProvider({ children }) {
+  const [items, setItems] = useState([]);        // [{id, kind:'text'|'code', value}]
+  const [selectedIds, setSelectedIds] = useState(new Set());
 
-  // Lista de entradas del panel (texto, fotos simbólicas, códigos…)
+  const addTextItem = (value) => setItems(prev => [{ id: uuid(), kind: 'text', value }, ...prev]);
+  const addCodeItem = (value) => setItems(prev => [{ id: uuid(), kind: 'code', value }, ...prev]);
 
-  const [items, setItems] = useState([]); // [{ id, label, type: 'text'|'photo'|'code' }]
+  const toggleSelect = (id) => setSelectedIds(prev => {
+    const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n;
+  });
 
-  // Historial de tareas generadas
-
-  const [history, setHistory] = useState([]);
-
-  // Selección (usamos array para que FlatList y "includes" sean sencillos)
-
-  const [selectedIds, setSelectedIds] = useState([]);
-
-
-  // --- Acciones expuestas (NO exponer setItems directamente) ---
-
-  const addItem = (label, type = 'text') => {
-
-    const t = String(label || '').trim();
-
-    if (!t) return;
-
-    setItems(prev => [...prev, { id: uuid(), label: t, type }]);
-
-  };
-
-
-  const addText = (t) => addItem(t, 'text');
-
-  const addPhoto = (desc) => addItem(desc || 'Foto', 'photo');
-
-  const addCode = (c) => addItem(c, 'code');
-
-
-  const toggleSelect = (id) => {
-
-    setSelectedIds(prev => (prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]));
-
-  };
-
-
-  const clearSelection = () => setSelectedIds([]);
-
-
-  const deleteSelected = () => {
-
-    if (selectedIds.length === 0) return;
-
-    setItems(prev => prev.filter(it => !selectedIds.includes(it.id)));
-
-    setSelectedIds([]);
-
-  };
-
-
-  const saveTask = (taskData) => {
-
-    const task = {
-
-      id: uuid(),
-
-      createdAt: new Date().toISOString(),
-
-      items: taskData || items,
-
-    };
-
-    setHistory(prev => [task, ...prev]);
-
-    return task;
-
-  };
-
+  const removeSelected = () => setItems(prev => prev.filter(it => !selectedIds.has(it.id))) || setSelectedIds(new Set());
+  const clearAll = () => { setItems([]); setSelectedIds(new Set()); };
 
   const value = useMemo(() => ({
-
-    items, selectedIds, history,
-
-    addItem, addText, addPhoto, addCode,
-
-    toggleSelect, clearSelection, deleteSelected,
-
-    saveTask,
-
-  }), [items, selectedIds, history]);
-
+    items, addTextItem, addCodeItem,
+    selectedIds, toggleSelect, removeSelected, clearAll,
+  }), [items, selectedIds]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
-
 }
-
 
 export const useIntake = () => useContext(Ctx);

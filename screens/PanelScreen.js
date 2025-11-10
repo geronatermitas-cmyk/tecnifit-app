@@ -1,86 +1,47 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+// @ts-nocheck
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../store/AuthStore';
-import { usePlan } from '../store/PlanStore';
-import SearchBar from '../components/SearchBar';
-
-// Componente de tarjeta de navegación
-const NavCard = ({ icon, title, subtitle, onPress }) => (
-  <TouchableOpacity style={styles.navCard} onPress={onPress}>
-    <Text style={styles.navIcon}>{icon}</Text>
-    <View style={styles.navTextContainer}>
-      <Text style={styles.navTitle}>{title}</Text>
-      <Text style={styles.navSubtitle}>{subtitle}</Text>
-    </View>
-    <Text style={styles.navArrow}>›</Text>
-  </TouchableOpacity>
-);
+import { useIntake } from '../store/IntakeStore';
 
 export default function PanelScreen() {
   const navigation = useNavigation();
-  const { user, limits, usedToday } = useAuth();
-  const { currentPlan } = usePlan();
-  const [searchResults, setSearchResults] = useState(null);
+  const { user } = useAuth();
+  const { items = [] } = useIntake?.() || {};
 
-  const userName = user?.name || user?.email?.split('@')[0] || 'Usuario';
-  const currentLimit = limits?.maxTasksPerDay || 3;
-  const tasksRemaining = currentLimit - (usedToday || 0);
+  const onGenerateTask = () => {
+    // Coincidencias sin IA (búsqueda en catálogo/demo)
+    navigation.navigate('Results', { mode: 'match', from: 'panel' });
+  };
 
-  const handleSearch = (results) => {
-    setSearchResults(results);
-    navigation.navigate('Results', { query: results.query, results });
+  const onGoToReview = () => {
+    // Constructor de tarea (antes llamado “Ir a Revisión”)
+    navigation.navigate('TaskBuilder');
   };
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      {/* Sección de Bienvenida y Cuota */}
-      <View style={styles.header}>
-        <Text style={styles.hi}>Hola, {userName}</Text>
-        <Text style={styles.planText}>Plan Actual: {currentPlan?.toUpperCase() || 'GRATUITO'}</Text>
+    <View style={styles.container}>
+      <Text style={styles.hi}>Hola{user?.name ? `, ${user.name}` : ''}</Text>
+      <Text style={styles.quota}>Cuota: 0/3</Text>
+
+      {/* … aquí tus inputs de añadir búsqueda, foto, código … */}
+
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.btnGhost} onPress={onGenerateTask}>
+          <Text style={styles.btnGhostTxt}>Genera tarea</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.btnPrimary} onPress={onGoToReview}>
+          <Text style={styles.btnPrimaryTxt}>Ir a Revisión</Text>
+        </TouchableOpacity>
       </View>
-
-      {/* Tarjeta de Cuota */}
-      <View style={styles.quotaCard}>
-        <Text style={styles.quotaTitle}>Tareas IA Restantes Hoy</Text>
-        <Text style={styles.quotaCount}>{tasksRemaining} / {currentLimit}</Text>
-        <Text style={styles.quotaSubtext}>
-          {tasksRemaining > 0 
-            ? `Tienes ${tasksRemaining} tareas IA disponibles.`
-            : 'Has alcanzado tu límite diario.'
-          }
-        </Text>
-      </View>
-
-      {/* Barra de Búsqueda */}
-      <View style={styles.searchSection}>
-        <SearchBar onSearch={handleSearch} />
-      </View>
-
-      {/* Acciones Principales */}
-      <Text style={styles.sectionTitle}>Acciones Rápidas</Text>
-      <NavCard 
-        icon="🛠️" 
-        title="Generar Nueva Tarea IA" 
-        subtitle="Crea una guía de reparación paso a paso al instante." 
-        onPress={() => navigation.navigate('TaskBuilder')} 
-      />
-
-      {/* Historial solo para PRO y COLAB */}
-      {(currentPlan === 'pro' || currentPlan === 'colab') && (
-        <NavCard 
-          icon="📚" 
-          title="Historial de Tareas" 
-          subtitle="Revisa y reutiliza tus guías de reparación anteriores." 
-          onPress={() => navigation.navigate('History')} 
-        />
-      )}
-
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+<<<<<<< HEAD
   container: { 
     flex: 1, 
     backgroundColor: '#F8FAFC', 
@@ -174,3 +135,20 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
+=======
+  container: { flex: 1, backgroundColor: '#F8FAFC', padding: 16 },
+  hi: { fontSize: 28, fontWeight: '900', color: '#0F172A' },
+  quota: { color: '#64748B', marginBottom: 16 },
+  footer: { flexDirection: 'row', gap: 12, paddingTop: 8 },
+  btnGhost: {
+    flex: 1, borderWidth: 1, borderColor: '#CBD5E1',
+    borderRadius: 14, alignItems: 'center', paddingVertical: 14, backgroundColor: '#FFF',
+  },
+  btnGhostTxt: { fontWeight: '800', color: '#0F172A' },
+  btnPrimary: {
+    flex: 1, backgroundColor: '#2563EB',
+    borderRadius: 14, alignItems: 'center', paddingVertical: 14,
+  },
+  btnPrimaryTxt: { color: '#fff', fontWeight: '800' },
+});
+>>>>>>> backup/2025-11-10-master
