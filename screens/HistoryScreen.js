@@ -27,17 +27,8 @@ export default function HistoryScreen() {
     </View>
   );
 }
-<<<<<<< HEAD
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F8FAFC', padding: 20 },
-  h1: { fontSize: 22, fontWeight: '800', marginBottom: 12 },
-  card: { backgroundColor: '#fff', padding: 12, borderRadius: 10, marginBottom: 8, borderWidth: 1, borderColor: '#E2E8F0' },
-});
-=======
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff', padding: 20 },
   h1: { fontSize: 22, fontWeight: '800', marginBottom: 12 },
   card: { backgroundColor: '#F3F4F6', padding: 12, borderRadius: 10, marginBottom: 8 },
 });
->>>>>>> backup/2025-11-10-master

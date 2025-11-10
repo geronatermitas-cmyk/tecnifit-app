@@ -37,9 +37,6 @@ const CategoryFilterBar = ({
 
   return (
     <View style={[styles.container, style]}>
-<<<<<<< HEAD
-      <FlatList data={categories} keyExtractor={(item) => item} renderItem={renderItem} horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.listContent} />
-=======
       <FlatList
         data={categories}
         keyExtractor={(item) => item}
@@ -48,7 +45,6 @@ const CategoryFilterBar = ({
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.listContent}
       />
->>>>>>> backup/2025-11-10-master
     </View>
   );
 };
@@ -56,21 +52,13 @@ const CategoryFilterBar = ({
 const styles = StyleSheet.create({
   container: { paddingVertical: 8 },
   listContent: { paddingHorizontal: 12, gap: 8 },
-<<<<<<< HEAD
-  chip: { paddingVertical: 8, paddingHorizontal: 14, borderRadius: 16, backgroundColor: '#F0F0F0', borderWidth: 1, borderColor: '#E2E2E2' },
-=======
   chip: {
     paddingVertical: 8, paddingHorizontal: 14, borderRadius: 16,
     backgroundColor: '#F0F0F0', borderWidth: 1, borderColor: '#E2E2E2',
   },
->>>>>>> backup/2025-11-10-master
   chipActive: { backgroundColor: '#2563EB', borderColor: '#2563EB' },
   chipText: { fontSize: 14, color: '#333' },
   chipTextActive: { color: '#fff', fontWeight: '600' },
 });
 
-<<<<<<< HEAD
 export default memo(CategoryFilterBar);
-=======
-export default memo(CategoryFilterBar);
->>>>>>> backup/2025-11-10-master

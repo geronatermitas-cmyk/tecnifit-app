@@ -41,101 +41,6 @@ export default function PanelScreen() {
 }
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
-  container: { 
-    flex: 1, 
-    backgroundColor: '#F8FAFC', 
-  },
-  content: {
-    padding: 20,
-  },
-  header: {
-    marginBottom: 20,
-  },
-  hi: { 
-    fontSize: 32, 
-    fontWeight: '900', 
-    color: '#0F172A',
-  },
-  planText: {
-    fontSize: 16,
-    color: '#2563EB',
-    fontWeight: '700',
-    marginTop: 4,
-  },
-  quotaCard: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 20,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  quotaTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#0F172A',
-    marginBottom: 4,
-  },
-  quotaCount: {
-    fontSize: 48,
-    fontWeight: '900',
-    color: '#2563EB',
-    marginBottom: 8,
-  },
-  quotaSubtext: {
-    fontSize: 14,
-    color: '#64748B',
-    marginBottom: 0,
-  },
-  searchSection: {
-    marginBottom: 24,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '900',
-    color: '#0F172A',
-    marginTop: 10,
-    marginBottom: 15,
-  },
-  navCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 15,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-  },
-  navIcon: {
-    fontSize: 24,
-    marginRight: 15,
-  },
-  navTextContainer: {
-    flex: 1,
-  },
-  navTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#0F172A',
-  },
-  navSubtitle: {
-    fontSize: 12,
-    color: '#64748B',
-  },
-  navArrow: {
-    fontSize: 24,
-    color: '#94A3B8',
-    marginLeft: 10,
-  },
-});
-=======
   container: { flex: 1, backgroundColor: '#F8FAFC', padding: 16 },
   hi: { fontSize: 28, fontWeight: '900', color: '#0F172A' },
   quota: { color: '#64748B', marginBottom: 16 },
@@ -151,4 +56,3 @@ const styles = StyleSheet.create({
   },
   btnPrimaryTxt: { color: '#fff', fontWeight: '800' },
 });
->>>>>>> backup/2025-11-10-master

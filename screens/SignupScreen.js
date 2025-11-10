@@ -57,29 +57,6 @@ export default function SignupScreen() {
 }
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
-  wrap: { flex: 1, paddingHorizontal: 20, justifyContent: 'center' },
-  h1: { fontSize: 20, fontWeight: '800' },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    marginBottom: 20,
-  },
-  backBtn: {
-    fontSize: 16,
-    color: '#2563EB',
-    fontWeight: '700',
-  },
-  title: { fontSize: 28, fontWeight: '900', marginBottom: 16, color: '#0F172A' },
-  input: { backgroundColor: '#FFF', borderWidth: 1, borderColor: '#E2E8F0', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, marginBottom: 12, fontSize: 16 },
-  btn: { backgroundColor: '#2563EB', borderRadius: 12, alignItems: 'center', paddingVertical: 14, marginTop: 4 },
-  btnTxt: { color: '#fff', fontWeight: '800', fontSize: 17 },
-  link: { textAlign: 'center', color: '#2563EB', marginTop: 12 },
-});
-=======
   wrap: { flex: 1, padding: 20, justifyContent: 'center' },
   title: { fontSize: 28, fontWeight: '900', marginBottom: 16, color: '#0F172A' },
   input: {
@@ -89,4 +66,3 @@ const styles = StyleSheet.create({
   btn: { backgroundColor: '#2563EB', borderRadius: 12, alignItems: 'center', paddingVertical: 14, marginTop: 4 },
   btnTxt: { color: '#fff', fontWeight: '800', fontSize: 17 },
 });
->>>>>>> backup/2025-11-10-master
