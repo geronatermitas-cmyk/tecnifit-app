@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "app-movil-clean",
-    "slug": "app-movil-clean",
+    "slug": "tecnicfit-ia",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/adt-icon.png",
@@ -16,6 +16,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.tecnicfit.ia",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adt-icon.png",
         "backgroundColor": "#ffffff"
@@ -28,6 +29,11 @@
     "plugins": [
       "expo-font",
       "expo-secure-store"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "440bde3b-10d3-4379-9734-14eaf24cc31d"
+      }
+    }
   }
 }
